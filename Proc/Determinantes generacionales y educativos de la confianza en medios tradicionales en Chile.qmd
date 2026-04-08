@@ -6,7 +6,7 @@ editor: visual
 bibliography: references.bib
 ---
 
-## Introducción.
+## Introducción
 
 La masificación de los medios de comunicación dió paso a una sociedad más globalizada e interconectada partiendo desde la imprenta, periódicos, radios, televisión hasta llegar hoy en día a una era de redes sociales. Estos distintos medios desempeñan un rol clave en la representación de la realidad y por lo tanto en la comprensión que las personas tienen de la misma [@friderichsen2022]
 
@@ -39,5 +39,3 @@ Para realizar este estudio ocuparemos la base de datos “El Estudio Longitudina
 -   edad_enc (edad encuestado)
 
 Estas variables nos permitirán comparar los niveles de confianza en Medios de Comunicación Tradicionales de distintos grupos según nivel educacional y edad. 
-
-
