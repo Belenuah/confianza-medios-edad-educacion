@@ -1,0 +1,4 @@
+[1,"==> quarto preview Determinantes generacionales y educativos de la confianza en medios tradicionales en Chile.qmd --to html --no-watch-inputs --no-browse\n\n"]
+[1,"pandoc \n  to: html\n  output-file: >-\n    Determinantes generacionales y educativos de la confianza en medios\n    tradicionales en Chile.html\n  standalone: true\n  section-divs: true\n  html-math-method: mathjax\n  wrap: none\n  default-image-extension: png\n  \nmetadata\n  document-css: false\n  link-citations: true\n  date-format: long\n  lang: en\n  title: Determinantes generacionales y educativos de la confianza en medios tradicionales en Chile.\n  author: Belen Castro y Millaray Maulen\n  editor: visual\n  bibliography:\n    - ../Input/references.bib\n  \n"]
+[1,"Output created: Determinantes generacionales y educativos de la confianza en medios tradicionales en Chile.html\n\nWatching files for changes\n"]
+[1,"Browse at http://localhost:4654/\n"]
