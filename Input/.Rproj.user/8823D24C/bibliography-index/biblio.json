@@ -1,0 +1,92 @@
+{
+    "sources": [
+        {
+            "DOI": "10.16921/chasqui.v0i150.4709",
+            "URL": "https://revistachasqui.org/index.php/chasqui/article/view/4709",
+            "author": [
+                {
+                    "family": "Friderichsen",
+                    "given": "Claudia Ramírez"
+                },
+                {
+                    "family": "Lobos",
+                    "given": "Pablo Matus"
+                },
+                {
+                    "family": "Pontificia Universidad Católica de Chile"
+                },
+                {
+                    "family": "Pontificia Universidad Católica de Chile"
+                }
+            ],
+            "container-title": "Chasqui, Revista Latinoamericana de Comunicación",
+            "id": "friderichsen2022",
+            "issue": "150",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022,
+                        8,
+                        21
+                    ]
+                ]
+            },
+            "language": "es",
+            "page": "247-262",
+            "title": "Marco de desconfianza mediática: Una propuesta para entender el descrédito de los medios de comunicación",
+            "title-short": "Marco de desconfianza mediática",
+            "type": "article-journal",
+            "volume": "1"
+        },
+        {
+            "author": [
+                {
+                    "family": "Serrano-Puche",
+                    "given": "Javier"
+                }
+            ],
+            "container-title": "González, M. y Valderrama, M.",
+            "id": "serrano-puche2017",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "language": "es",
+            "title": "CREDIBILIDAD Y CONFIANZA EN LOS MEDIOS DE COMUNICACIÓN: UN PANORAMA DE LA SITUACIÓN EN ESPAÑA",
+            "title-short": "CREDIBILIDAD Y CONFIANZA EN LOS MEDIOS DE COMUNICACIÓN",
+            "type": "article-journal"
+        },
+        {
+            "DOI": "10.7770/rchdcp-V9N1-art1293",
+            "URL": "https://derechoycienciapolitica.uct.cl/index.php/RDCP/article/view/125",
+            "author": [
+                {
+                    "family": "Espinoza-Bianchini",
+                    "given": "Gonzalo"
+                }
+            ],
+            "container-title": "Revista Chilena de Derecho y Ciencia Política",
+            "id": "espinoza-bianchini2023",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023,
+                        5,
+                        31
+                    ]
+                ]
+            },
+            "language": "es",
+            "page": "183-211",
+            "title": "Informados y confiados: el efecto del consumo de medios de comunicación tradicional y digital sobre la confianza de los chilenos en 2015",
+            "title-short": "Informados y confiados",
+            "type": "article-journal",
+            "volume": "9"
+        }
+    ],
+    "project_biblios": []
+}

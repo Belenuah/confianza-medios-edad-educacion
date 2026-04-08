@@ -1,0 +1,43 @@
+---
+title: "Determinantes generacionales y educativos de la confianza en medios tradicionales en Chile."
+author: "Belen Castro y Millaray Maulen"
+format: html
+editor: visual
+bibliography: references.bib
+---
+
+## Introducción.
+
+La masificación de los medios de comunicación dió paso a una sociedad más globalizada e interconectada partiendo desde la imprenta, periódicos, radios, televisión hasta llegar hoy en día a una era de redes sociales. Estos distintos medios desempeñan un rol clave en la representación de la realidad y por lo tanto en la comprensión que las personas tienen de la misma [@friderichsen2022]
+
+La confianza se entiende como un elemento que configura el vínculo entre la ciudadanía y los medios de comunicación, influyendo en el consumo informativo y entendimiento de la realidad de las personas [@serrano-puche2017]. Actualmente se está viviendo una crisis de esta confianza, y también de credibilidad, en los medios a nivel mundial, la cual en Chile se ha manifestado con más fuerza, según [@friderichsen2022], luego del llamado “estallido social” del 2019 en donde fueron muy presentes las consignas tales como “La prensa miente” o “Apaga la tele”.
+
+Sin embargo, los autores hacen hincapié en que este cambio de percepción y valoración a afectado sobretodo a los medios de comunicación tradicionales o editoriales, definidos como “Aquellos que producen y difunden contenidos siguiendo patrones estandarizados, sean de tipo institucional, ético-profesional o incluso comercial” [@friderichsen2022], por ejemplo los diarios, radioemisoras o canales de televisión. 
+
+Los autores aparte de entender la concentración de propiedad de los medios, relaciones de dependencia con otras industrias que financian y una homogeneización de contenidos como factores importantes que favorecen a la creencia de que los medios de comunicación editoriales son controlados externamente, consideran importante destacar el surgimiento de nuevos medios sociales de comunicación (redes sociales como Instagram o TikTok), popularmente usadas por las nuevas generaciones, las cuales “post-estallido social” fueron validadas como espacios de debate y comunicación de la ciudadanía. 
+
+En el escenario actual del país la relación entre la ciudadanía y los medios de comunicación ha dejado de ser monolítica. Mientras que para las generaciones mayores la televisión y la radio han funcionado históricamente como los principales en garantizar la realidad nacional, las generaciones más jóvenes han desplazado su atención hacia medios digitales caracterizados por la inmediatez. A partir de esta brecha generacional planteamos la siguiente pregunta de investigación: ¿En qué medida la confianza en medios de comunicación tradicionales va a variar dependiendo del rango etario y nivel educacional de la población chilena?
+
+Nuestra hipótesis central es que tanto la edad como el nivel educacional de la persona va a influir en el nivel de confianza que tiene hacia los medios de comunicación tradicionales.
+
+Desde nuestro punto de vista buscamos ir más allá de la simple idea de que la gente solo “ve tele” o “escucha radio”. La importancia de este problema se encuentra en entender cómo ese consumo de medios impacta en nuestra convivencia y confianza. Para profundizar en esta investigación [@espinoza-bianchini2023] expone que en la literatura existen dos posturas contrarias: por un lado hay autores que piensan que los medios llegan a dañar la confianza porque manipulan la información; por otro lado, hay quienes creen lo contrario. En nuestra investigación analizaremos el rol de los medios como un “filtro”, ya que estos no nos imponen qué pensar, pero sí nos dicen cuáles son los temas importantes (o Agenda Setting). Nuestro aporte será demostrar que este filtro no afecta a todos de la misma manera, sino que depende de factores claves como la edad y el nivel educacional de las personas. En cuanto a lo generacional, no es lo mismo cómo procesa una noticia alguien que creció informándose por la prensa escrita que un joven acostumbrado a la rapidez y los comentarios de las redes sociales. Aquí la edad actuaría como un marco de socialización que define que tan “natural” nos resulta confiar en un formato u otro.
+
+A esto se suma la relevancia del nivel educativo el cual funciona como una herramienta crítica. Según el análisis de [@espinoza-bianchini2023], una mayor formación académica tiende a expandir los horizontes de pensamiento, entregando a los individuos más recursos para generar redes y por tanto potenciar la confianza interpersonal. Sin embargo en lo institucional la educación puede actuar de dos formas: puede reducir los prejuicios hacia las organizaciones o por el contrario, generar ciudadanos más exigentes y críticos frente al desempeño de las mismas. 
+
+Para realizar este estudio ocuparemos la base de datos “El Estudio Longitudinal Social de Chile (ELSOC)” (<https://conferencias.coes.cl/encuesta-panel/>) específicamente las siguientes variables:
+
+-   C05. Utilizando una escala donde 1 representa “Nada” y 5 “Mucho”, podría decirme cuánto confía usted en cada una de las siguientes instituciones? 
+
+<!-- -->
+
+-   C05_12. Medios De Comunicación Tradicionales (Televisión,prensa, radio). 
+
+<!-- -->
+
+-   M01. ¿Cuál es su nivel educacional? Indique el tipo de estudio actual (si estudia actualmente) o el último tipo aprobado(si no estudia actualmente).
+
+-   edad_enc (edad encuestado)
+
+Estas variables nos permitirán comparar los niveles de confianza en Medios de Comunicación Tradicionales de distintos grupos según nivel educacional y edad. 
+
+
