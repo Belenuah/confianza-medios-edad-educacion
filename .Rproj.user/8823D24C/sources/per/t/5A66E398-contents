@@ -1,0 +1,29 @@
+---
+title: "Tarea 1 (estadística 3)"
+author: "Belén Castro"
+format: html
+editor: visual
+---
+
+# Tarea 1
+
+## Estadística III
+
+Mediante esta tarea aprenderemos a usar lo básico de Rstudio y Quarto, aparte de aprender como organizar las carpetas al momento de empezar un proyecto. Ocuparemos la base de datos de INJUV y elegiremos la variable para empezar a ocupar ciertos códigos básicos. La misión de esta tarea es familiarizarnos con el programa para proximas tareas y prácticos.
+
+1.  Primero instalamos los paquetes a utilizar
+
+```{r}
+install.packages("tidyverse")
+install.packages("haven")
+install.packages("dplyr")
+
+```
+
+2.  Luego los llamamos
+
+```{r}
+library(tidyverse)
+library(haven)
+library(dplyr)
+```

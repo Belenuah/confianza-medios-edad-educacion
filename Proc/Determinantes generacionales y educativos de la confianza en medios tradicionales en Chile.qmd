@@ -16,7 +16,7 @@ Sin embargo, los autores hacen hincapié en que este cambio de percepción y val
 
 Los autores aparte de entender la concentración de propiedad de los medios, relaciones de dependencia con otras industrias que financian y una homogeneización de contenidos como factores importantes que favorecen a la creencia de que los medios de comunicación editoriales son controlados externamente, consideran importante destacar el surgimiento de nuevos medios sociales de comunicación (redes sociales como Instagram o TikTok), popularmente usadas por las nuevas generaciones, las cuales “post-estallido social” fueron validadas como espacios de debate y comunicación de la ciudadanía. 
 
-En el escenario actual del país la relación entre la ciudadanía y los medios de comunicación ha dejado de ser monolítica. Mientras que para las generaciones mayores la televisión y la radio han funcionado históricamente como los principales en garantizar la realidad nacional, las generaciones más jóvenes han desplazado su atención hacia medios digitales caracterizados por la inmediatez. A partir de esta brecha generacional planteamos la siguiente pregunta de investigación: ¿En qué medida la confianza en medios de comunicación tradicionales va a variar dependiendo del rango etario y nivel educacional de la población chilena?
+En el escenario actual del país la relación entre la ciudadanía y los medios de comunicación ha dejado de ser monolítica. Mientras que para las generaciones mayores la televisión y la radio han funcionado históricamente como los principales en garantizar la realidad nacional, las generaciones más jóvenes han desplazado su atención hacia medios digitales caracterizados por la inmediatez. A partir de esta brecha generacional planteamos la siguiente pregunta de investigación: ¿En qué medida influye la brecha generacional y el nivel educacional en la configuración de la confianza hacia los medios tradicionales en Chile y hasta que punto esta valoración es diferente para Hombres y Mujeres?
 
 Nuestra hipótesis central es que tanto la edad como el nivel educacional de la persona va a influir en el nivel de confianza que tiene hacia los medios de comunicación tradicionales.
 
@@ -24,18 +24,215 @@ Desde nuestro punto de vista buscamos ir más allá de la simple idea de que la 
 
 A esto se suma la relevancia del nivel educativo el cual funciona como una herramienta crítica. Según el análisis de [@espinoza-bianchini2023], una mayor formación académica tiende a expandir los horizontes de pensamiento, entregando a los individuos más recursos para generar redes y por tanto potenciar la confianza interpersonal. Sin embargo en lo institucional la educación puede actuar de dos formas: puede reducir los prejuicios hacia las organizaciones o por el contrario, generar ciudadanos más exigentes y críticos frente al desempeño de las mismas. 
 
-Para realizar este estudio ocuparemos la base de datos “El Estudio Longitudinal Social de Chile (ELSOC)” (<https://conferencias.coes.cl/encuesta-panel/>) específicamente las siguientes variables:
+El objetivo central de este reporte es examinar el impacto que tienen la brecha generacional (edad) y el nivel educacional en la percepción y confianza que la ciudadanía chilena deposita en los medios de comunicación tradicionales (televisión, radio y diarios). A través del análisis de datos secundarios provenientes de la encuesta ELSOC, se busca determinar si estas caracteristicas personales generan perfiles de consumo y credibilidad distintos, evaluando simultáneamente si el sexo de las personas actúa como un factor de diferenciación o si la crisis de confianza mediática es algo que afecta a todos por igual. Finalmente, este trabajo pretende sistematizar dichos hallazgos en un formato de reporte dinámico mediante Quarto, facilitando la visualización de los datos y su consulta pública a través de la plataforma GitHub.
 
--   C05. Utilizando una escala donde 1 representa “Nada” y 5 “Mucho”, podría decirme cuánto confía usted en cada una de las siguientes instituciones? 
+## Base de Datos
 
-<!-- -->
+Para realizar este estudio ocuparemos la base de datos “El Estudio Longitudinal Social de Chile (ELSOC)” (<https://conferencias.coes.cl/encuesta-panel/>) específicamente la ola 6 correspondiente al año 2022.
 
--   C05_12. Medios De Comunicación Tradicionales (Televisión,prensa, radio). 
+```{r}
+#1. Cargamos los paquetes a utilizar.-
 
-<!-- -->
+library(pacman)
+p_load(tidyverse, haven, dplyr, car)
 
--   M01. ¿Cuál es su nivel educacional? Indique el tipo de estudio actual (si estudia actualmente) o el último tipo aprobado(si no estudia actualmente).
+#2. Cargamos la base de datos a utilizar.-
+base_elsoc <- read_dta("C:/Users/belen/OneDrive/Documentos/GitHub/confianza-medios-edad-educacion/Input/ELSOC_Long_2016_2023.dta")
 
--   edad_enc (edad encuestado)
+#2.1 Elegimos la ola 6, que corresponde a la del 2022.-
+elsoc2022 <- base_elsoc %>%
+  filter(ola == 6)
 
-Estas variables nos permitirán comparar los niveles de confianza en Medios de Comunicación Tradicionales de distintos grupos según nivel educacional y edad. 
+view(elsoc2022)
+```
+
+## Elección de variables.
+
+-   Variable "Edad":
+
+El nombre de esta variable en la base de datos es "edad". Es una variable de nivel de medición de intervalo/razón y registra los años cumplidos de cada persona con un rango que va desde los 19 a los 78 años. Para los fines de esta investigación, funciona como un indicador fundamental de la "cohorte" o grupo generacional al que pertenece el individuo. Su importancia radica en que la edad nos permite identificar el marco de socialización política y mediática bajo el cual se formó cada sujeto.
+
+Desde una perspectiva teórica, la relevancia de esta variable en el contexto nacional se sustenta en que "en Chile a mayor edad existe una tendencia a evaluar de mejor manera aquellas instituciones que sostienen la democracia". Esto sugiere que las generaciones mayores vivieron gran parte de su vida en un ecosistema donde la televisión, la radio y la prensa escrita eran los únicos "garantes" de la realidad y los principales mediadores entre el Estado y la ciudadanía. Esto generó en ellos un hábito de validar la información institucional, viendo en los medios tradicionales una fuente de autoridad y estabilidad necesaria para el sistema democrático.
+
+Por el contrario, para las generaciones más jóvenes o "nativos digitales", el acceso a la información ha estado marcado desde siempre por la horizontalidad de internet. Este cambio se refleja en datos críticos: "el 40% de las personas de entre 18 y 29 años no confían para nada en los medios tradicionales". Para este grupo, los medios tradicionales a menudo se perciben como estructuras lejanas o rígidas, lo que los empuja a buscar la verdad en espacios digitales donde ellos mismos pueden ser emisores. Por lo tanto, el análisis de la edad en esta investigación es crucial para testear nuestra hipótesis de que existe una brecha generacional clara, donde la confianza es un residuo de la socialización del siglo XX que se debilita frente al auge de los medios digitales y la validación de las redes sociales como espacios de debate ciudadano. Según la bibliografía, a mayor edad existe una tendencia a evaluar de mejor manera las instituciones que sostienen la democracia, incluyendo la televisión y la radio.
+
+-   Variable "Sexo":
+
+El nombre de esta variable en la base de datos es "sexo". Es de caracter nominal y clasifica a los participantes entre hombres y mujeres, funcionando como un factor de contraste fundamental para observar si el género influye en la forma en que se evalúa a la prensa y la televisión en el contexto nacional. En la sociología de la comunicación, el sexo se utiliza a menudo para identificar si existen sesgos de percepción o diferencias en el vínculo con el sistema; de hecho, parte de la literatura internacional sugiere una "predisposición femenina a participar menos, pero a confiar más en las personas e instituciones". Bajo esta premisa, se podría esperar que las mujeres presenten niveles de credibilidad más altos hacia los medios editoriales que los hombres.
+
+Sin embargo, al aterrizar este análisis al escenario local, la evidencia sugiere un comportamiento distinto. Diversos estudios indican que "en Chile no existe una diferencia significativa entre hombres y mujeres a la hora de confiar en las instituciones". Esto implica que el descrédito mediático parece ser un fenómeno que atraviesa la identidad de género de manera uniforme. Al respecto, [@friderichsen2022] mencionan que este sentimiento de desconfianza se consolidó tras la crisis social de 2019, donde consignas como “Apaga la tele” o “La prensa miente” se hicieron muy populares y advirtieron un cambio en la percepción y valoración de los medios por parte de las personas" de forma transversal.
+
+Por lo tanto, incluir el sexo en esta investigación no solo permite validar si estas tendencias de igualdad se mantienen en los datos más recientes, sino que también sirve como un filtro de control esencial. Su objetivo es asegurar que los hallazgos sobre la edad o el nivel educacional sean sólidos y representativos de la sociedad en su conjunto, confirmando si la crisis de legitimidad de los medios tradicionales es, efectivamente, un malestar ciudadano que no distingue entre hombres y mujeres.
+
+En resumen funciona como una variable de control esencial. Sirve para verificar si la crisis de credibilidad mediática tras el estallido social de 2019 fue transversal o si existen matices de género, dado que algunos perfiles de "escépticos" suelen concentrarse en hombres de edad madura
+
+Variable "Nivel Educacional":
+
+El nombre de esta variable es "niveleduc". Se trata de una variable de nivel de medición ordinal la cual clasifica a los individuos según su máximo nivel de instrucción alcanzado: 1. sin estudios, 2. educación básica o preparatoria incompleta, 3. educación básica o preparatoria completa, 4. educación media o humanidades incompletas, 5. educación media o humanidades completa, 6. técnico superior incompleto, 7. técnico superior completo, 8. universitaria incompleta, 9. universitaria completa, 10. estudios de posgrado (magíster o doctorado), sin embargo lo dividimos en tres grupos: "Básica", "Media", "Superior". Representa el "capital cultural" o las herramientas cognitivas con las que cuenta cada persona para interpretar la realidad. En este estudio, el nivel educativo se analiza como una herramienta crítica que define la relación entre el ciudadano y el sistema de medios. Según los planteamientos de [@espinoza-bianchini2023], una mayor formación académica tiende a expandir los horizontes de pensamiento de las personas, entregándoles más recursos intelectuales y sociales para generar redes, lo que suele potenciar la confianza hacia los demás (confianza interpersonal).Sin embargo, cuando se trata de evaluar a las instituciones y a los medios tradicionales, la educación tiene un efecto doble y complejo. Por un lado, puede ayudar a reducir los prejuicios ciegos hacia las organizaciones, permitiendo que la persona entienda mejor el funcionamiento del sistema. Pero, por otro lado, el análisis sugiere que la educación formal tiende a generar ciudadanos mucho más exigentes, informados y críticos frente al desempeño de las instituciones.
+
+Para nuestra investigación, esta variable es fundamental porque nos permite observar si en Chile las personas con mayor nivel educativo son más propensas a desconfiar de la televisión y la prensa escrita al detectar posibles manipulaciones o falta de imparcialidad, o si, por el contrario, su formación les permite valorar el rol profesional de los medios editoriales. En resumen, el nivel educacional actúa como un filtro que puede transformar la confianza ciega en un juicio crítico y fundamentado.
+
+-   Variable "Confianza en Medios de Comunicación Tradicionales":
+
+El nombre de esta variable en la base de datos es "conf_medios". Es una variable de nivel de medición ordinal la cual refleja exactamente lo que buscamos medir y comparar a través de las variables independientes anteriormente presentadas (Sexo, Edad y Nivel Educación). Representa la legitimidad institucional y la credibilidad que la ciudadanía otorga al sistema experto del periodismo. Es la variable dependiente central y permite medir directamente el objeto de estudio y comparar los niveles de confianza entre distintos grupos sociales para validar la hipótesis de la investigación.
+
+El fraseo en la encuesta (C05_12) pregunta: "¿Cuánto confía usted en los Medios de Comunicación Tradicionales (Televisión, prensa, radio)?"
+
+-   Variable "Frecuencia de informarse sobre política a través de Medios de comunicación varios":
+
+Esta variable la consideramos como una que nos puede ayudar a construir una posible escala en el futuro.
+
+Es una variable de medición ordinal. El fraseo se consulta por la frecuencia con la que el encuestado se informa sobre política a través de televisión, radio o diarios nacionales. Es clave para analizar el "círculo virtuoso": permite investigar si un mayor consumo de noticias en medios de comunicación tradicionales refuerza la confianza institucional o si, por el contrario, la exposición frecuente genera un mayor desinterés o crítica (malestar mediático).
+
+```{r}
+#3. Seleccionamos variables.-
+elsoc2022_variables <- elsoc2022 %>%
+  select(
+    sexo = sexo_enc,
+    edad   = edad_enc,     
+    conf_medios       = c05_12,     
+    info_politica_medios = c14_02,
+    niveleduc = m01)
+
+#4. Eliminamos los NAs o casos perdidos.-
+
+elsoc2022variables_limpia <- elsoc2022_variables %>%
+  mutate(
+    edad = na_if(edad, -888),
+    edad = na_if(edad, -999),
+    conf_medios = na_if(conf_medios, -888),
+    conf_medios = na_if(conf_medios, -999),
+    info_politica_medios = na_if(info_politica_medios, -888),
+    info_politica_medios = na_if(info_politica_medios, -999),
+    niveleduc = na_if(niveleduc, -888),
+    niveleduc = na_if(niveleduc, -999)) %>% 
+  drop_na(edad, conf_medios, info_politica_medios, niveleduc)   
+
+#5. Recodificamos la variable "EDAD" en grupos etarios.-
+
+elsoc2022_final <- elsoc2022variables_limpia %>%
+  mutate(rango_etario = case_when(
+    edad >= 18 & edad <= 25 ~ "Jóvenes",
+    edad >= 26 & edad <= 59 ~ "Adultos",
+    edad >= 60 ~ "Adultos Mayores",
+    TRUE ~ NA_character_)) %>%
+  mutate(rango_etario = factor(rango_etario, 
+                               levels = c("Jóvenes", "Adultos", "Adultos Mayores")))
+
+table(elsoc2022_final$rango_etario)
+by(elsoc2022_final$edad, elsoc2022_final$rango_etario, summary)
+
+#6. Recodificamos la variable "NIVEL EDUCACIONAL" en grupos de nivel educacional.-
+
+elsoc22_final <- elsoc2022_final %>%
+  mutate(
+    nivel_educ = case_when(
+      niveleduc <= 3 ~ "Básica",           
+      niveleduc >= 4 & niveleduc <= 5 ~ "Media",      
+      niveleduc >= 6 & niveleduc <= 10 ~ "Superior",  
+      TRUE ~ NA_character_),
+    nivel_educ = factor(nivel_educ, levels = c("Básica", "Media", "Superior")))
+```
+
+## Tablas.
+
+#### Tabla de Medidas de Tendencia Central.
+
+```{r}
+
+p_load(psych)
+
+# Seleccionamos solo las variables numéricas para la tabla
+tabla_tc_edad_confmedios <- describe(elsoc22_final[, c("edad", "conf_medios")])
+
+tabla_tc_edad_confmedios <- tabla_tc_edad_confmedios %>% 
+  select(n, mean, sd, median, min, max)
+
+print(tabla_tc_edad_confmedios)
+```
+
+Esta tabla nos entrega la siguiente información: La edad promedio de las personas de la muestra es de unos 47 años y la mediana (50%) es de 45 lo que nos confirma que la muestra está un poco sesgada hacia la derecha.
+
+Respecto al promedio de la variable de Confianza en los medios tradicionales podemos ver que es de 2.51. Esto significa que en promedio la gente confía "Poco" o "Algo" en los medios de comunicación.
+
+#### Tabla de Frecuencias
+
+```{r}
+
+# Frecuencia para Sexo
+tabla_sexo <- elsoc22_final %>%
+  count(sexo) %>%
+  mutate(porcentaje = n / sum(n) * 100)
+
+# Frecuencia para Rango Etario
+tabla_rango <- elsoc22_final %>%
+  count(rango_etario) %>%
+  mutate(porcentaje = n / sum(n) * 100)
+
+# Frecuencia para Nivel Educacional
+tabla_educ <- elsoc22_final %>%
+  count(nivel_educ) %>%
+  mutate(porcentaje = n / sum(n) * 100)
+
+# Ver las tablas
+print(tabla_sexo)
+print(tabla_rango)
+print(tabla_educ)
+```
+
+Lo primero que observamos en estas tablas es que la muestra tiene una fuerte presencia del sexo Femenino. Aproximadamente un 75% son mujeres y un 24% hombres. Esto es importante ya que los resultados sobre confianza pueden estar influenciados por la visión femenina.
+
+En cuanto al rango etario, la gran mayoria de los encuestados son adultos (de 26 a 59 años) concentrando casi el 76% de la muestra. Luego de ellos les sigue el grupo de adultos matores con un 21% y los jovenes son el grupo más pequeño con un 3,2%.
+
+Para terminar, la distribución de la variable de Nivel Educacional está un poco más repartida. El grupo de educación media concentra un 44% de la muestra; luego le sigue el grupo de educacion superior con aproximadamente un 30% y un 24% cuentan solo con educación básica.
+
+## Gráficos.
+
+#### Gráfico para variable Sexo y Confianza en Medios Comunicación Tradicionales.
+
+```{r}
+#8.1 Gráfico para Sexo
+ggplot(elsoc22_final, aes(x = as.factor(sexo), y = conf_medios, fill = as.factor(sexo))) +
+  stat_summary(fun = "mean", geom = "bar") +
+  geom_text(stat = "summary", fun = "mean", aes(label = round(..y.., 2)), vjust = -0.5) +
+  labs(title = "Promedio de Confianza en Medios de Comunicacion tradicionales según Sexo",
+       x = "Sexo (1=Hombre, 2=Mujer)", 
+       y = "Promedio de Confianza",
+       fill = "Sexo") +
+  theme_classic()
+```
+
+Al mirar los promedios podemos notar que ambos son bastantes parecidos (los hombres muestran una confianza de 2.56 y las mujeres de 2.5), por lo tanto podriamos decir que no hay una brecha de género en como se confía en los medios de comunicación tradicionales. Ambos grupos mantienen una postura de confianza modera/baja.
+
+#### Gráficos para Rango Etario y Confianza en Medios Comunicación Tradicionales.
+
+```{r}
+#8.2 Gráfico para Rango Etario
+ggplot(elsoc22_final, aes(x = rango_etario, y = conf_medios, fill = rango_etario)) +
+  stat_summary(fun = "mean", geom = "bar") +
+  geom_text(stat = "summary", fun = "mean", aes(label = round(..y.., 2)), vjust = -0.5) +
+  labs(title = "Promedio de Confianza en Medios de Comunicacion tradicionales por Rango Etario",
+       x = "Grupos de Rango Etario",
+       y = "Promedio de Confianza") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set3")
+```
+
+En este gráfico podemos ver que los jóvenes son quienes tienen un promedio más alto en niveles de Confianza en Medios de Comunicación tradicionales (2.56) Los adultos tienen un promedio de 2.53 y los adultos mayores son los que menos confian con un promedio de 2.46.
+
+Sin embargo la diferencia entre los grupos y sus promedios no es muy distinta pero si hay una leve diferencia entre ellos.
+
+#### Gráficos para Nivel Educacional y Confianza en Medios Comunicación Tradicionales.
+
+```{r}
+ggplot(elsoc22_final, aes(x = nivel_educ, y = conf_medios, fill = nivel_educ)) +
+  stat_summary(fun = "mean", geom = "bar") +
+  geom_text(stat = "summary", fun = "mean", aes(label = round(..y.., 2)), vjust = -0.5) +
+  labs(title = "Promedio de Confianza en Medios de Comunicacion tradicionales por Nivel Educacional",
+       x = "Nivel de Educación",
+       y = "Promedio de Confianza") +
+  theme_light() +
+  scale_fill_viridis_d(option = "plasma")
+```
+
+Aqui podemos ver una diferencia entre nivel educativo y confianza en los medios de comunicación tradicionales. Notamos que a mayor nivel educativo es menor la confianza en los medios. Esto nos ayuda a evidenciar que el nivel educacional puede actuar como un filtro crítico; las personas con más nivel de estudios parecen cuestionar más la información que pueden recibir de los medios de comunicación tradicionales, como televisión, diarios o radio.

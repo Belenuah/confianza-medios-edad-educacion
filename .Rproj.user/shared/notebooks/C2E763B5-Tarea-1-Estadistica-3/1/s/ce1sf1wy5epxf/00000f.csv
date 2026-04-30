@@ -1,0 +1,53 @@
+"0","install.packages(""tidyverse"")"
+"1","Error in "
+"1",""
+"1","install.packages"
+"1",""
+"1"," : "
+"1",""
+"1","Updating loaded packages"
+"1",""
+"1","
+"
+"0","install.packages(""haven"")"
+"2","WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+"
+"2","Installing package into ‘C:/Users/belen/AppData/Local/R/win-library/4.4’
+(as ‘lib’ is unspecified)
+"
+"1","Warning in "
+"1",""
+"1","install.packages"
+"1",""
+"1"," :
+  "
+"1",""
+"1","unable to access index for repository https://cran.rstudio.com/bin/windows/contrib/4.4:
+  no fue posible abrir la URL 'https://cran.rstudio.com/bin/windows/contrib/4.4/PACKAGES'"
+"1",""
+"1","
+"
+"2","Package which is only available in source form, and may need compilation of C/C++/Fortran: ‘haven’
+"
+"1","  These will not be installed
+"
+"0","install.packages(""dplyr"")"
+"2","WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+"
+"2","Installing package into ‘C:/Users/belen/AppData/Local/R/win-library/4.4’
+(as ‘lib’ is unspecified)
+"
+"2","also installing the dependencies ‘lifecycle’, ‘rlang’, ‘vctrs’
+
+"
+"1","
+"
+"1",""
+"1","  There is a binary version available but the source version is later"
+"1",""
+"1",":
+"

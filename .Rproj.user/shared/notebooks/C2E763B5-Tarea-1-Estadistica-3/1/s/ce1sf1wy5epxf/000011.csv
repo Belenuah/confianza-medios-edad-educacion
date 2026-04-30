@@ -1,0 +1,112 @@
+"1","
+"
+"1","  Binaries will be installed
+"
+"2","probando la URL 'https://cran.rstudio.com/bin/windows/contrib/4.4/lifecycle_1.0.5.zip'
+"
+"1","Warning in "
+"1",""
+"1","install.packages"
+"1",""
+"1"," :
+  "
+"1",""
+"1","URL 'https://cran.rstudio.com/bin/windows/contrib/4.4/lifecycle_1.0.5.zip': status was 'SSL connect error'"
+"1",""
+"1","
+"
+"2","Error in download.file(url, destfile, method, mode = ""wb"", ...) : 
+  no fue posible abrir la URL 'https://cran.rstudio.com/bin/windows/contrib/4.4/lifecycle_1.0.5.zip'
+"
+"1","Warning in "
+"1",""
+"1","install.packages"
+"1",""
+"1"," :
+  "
+"1",""
+"1","download of package ‘lifecycle’ failed"
+"1",""
+"1","
+"
+"2","probando la URL 'https://cran.rstudio.com/bin/windows/contrib/4.4/rlang_1.2.0.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 1647638 bytes (1.6 MB)
+"
+"2","downloaded 1.6 MB
+
+"
+"2","probando la URL 'https://cran.rstudio.com/bin/windows/contrib/4.4/vctrs_0.7.2.zip'
+"
+"1","Warning in "
+"1",""
+"1","install.packages"
+"1",""
+"1"," :
+  "
+"1",""
+"1","URL 'https://cran.rstudio.com/bin/windows/contrib/4.4/vctrs_0.7.2.zip': status was 'SSL connect error'"
+"1",""
+"1","
+"
+"2","Error in download.file(url, destfile, method, mode = ""wb"", ...) : 
+  no fue posible abrir la URL 'https://cran.rstudio.com/bin/windows/contrib/4.4/vctrs_0.7.2.zip'
+"
+"1","Warning in "
+"1",""
+"1","install.packages"
+"1",""
+"1"," :
+  "
+"1",""
+"1","download of package ‘vctrs’ failed"
+"1",""
+"1","
+"
+"2","probando la URL 'https://cran.rstudio.com/bin/windows/contrib/4.4/dplyr_1.2.1.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 1619398 bytes (1.5 MB)
+"
+"2","downloaded 1.5 MB
+
+"
+"1","package ‘rlang’ successfully unpacked and MD5 sums checked
+"
+"1","package ‘dplyr’ successfully unpacked and MD5 sums checked
+"
+"1","
+"
+"1",""
+"1","The downloaded binary packages are in
+	C:\Users\belen\AppData\Local\Temp\Rtmpu6mm1F\downloaded_packages"
+"1",""
+"1","
+"
+"0","install.packages(""tidyverse"")"
+"2","WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+"
+"2","Installing package into ‘C:/Users/belen/AppData/Local/R/win-library/4.4’
+(as ‘lib’ is unspecified)
+"
+"2","probando la URL 'https://cran.rstudio.com/bin/windows/contrib/4.4/tidyverse_2.0.0.zip'
+"
+"2","Content type 'application/zip'"
+"2"," length 431688 bytes (421 KB)
+"
+"2","downloaded 421 KB
+
+"
+"1","package ‘tidyverse’ successfully unpacked and MD5 sums checked
+"
+"1","
+"
+"1",""
+"1","The downloaded binary packages are in
+	C:\Users\belen\AppData\Local\Temp\Rtmpu6mm1F\downloaded_packages"
+"1",""
+"1","
+"
