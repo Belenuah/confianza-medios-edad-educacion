@@ -1,5 +1,5 @@
 ---
-title: "Determinantes generacionales y educativos de la confianza en medios tradicionales en Chile."
+title: "Uso de las redes sociales para informarse sobre política y su relacion con una actitud autoritaria"
 author: "Belen Castro y Millaray Maulen"
 format: html
 editor: visual
