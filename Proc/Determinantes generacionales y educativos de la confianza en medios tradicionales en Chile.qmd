@@ -72,9 +72,9 @@ Para nuestra investigación, esta variable es fundamental porque nos permite obs
 
 Es una variable de medición ordinal. El fraseo se consulta por la frecuencia con la que el encuestado se informa sobre política a través de televisión, radio, diarios o internet (En el cuestionario es la variable C14_02, pero en la base de datos le pusimos el nombre de info_politica_medios) Es clave para nuestro análisis ya que nos permite entender si un mayor/menor consumo de estos medios para la información sobre política permitirá un mayor o menor rango en la escala de Autoritarismo.
 
-### Elección de variables para el la Variable Latente de "Autoritarismo"
+### Elección de variables para la Variable Latente de "Autoritarismo"
 
-Para la construcción de nuestra Varibale Latente nos basamos en la Escala de Autoritarismo de Derecha desarrollada por el psicólogo Bob Altemeyer. En esta escala, y cito a [@cárdenas2010] en su texto "Adaptación y validación de la Versión Abreviada de la Escala de Autoritarismos de Derechas (RWA) en una muestra chilena" se mide la "covariación de tres grupos de actitudes: sumisión autoritaria, agresión autoritaria y convencionalismo" (Cardenas & Parra, 2010, p. 62).
+Para la construcción de nuestra variable latente nos basamos en la Escala de Autoritarismo de Derecha desarrollada por el psicólogo Bob Altemeyer. En esta escala, y cito a [@cárdenas2010] en su texto "Adaptación y validación de la Versión Abreviada de la Escala de Autoritarismos de Derechas (RWA) en una muestra chilena" se mide la "covariación de tres grupos de actitudes: sumisión autoritaria, agresión autoritaria y convencionalismo" (Cardenas & Parra, 2010, p. 62).
 
 Por medidas prácticas elegimos una variable del cuestionario ELSOC 2022 por cada uno de esos tres grupos de actitudes.
 
@@ -106,7 +106,7 @@ elsoc6variables <- elsoc2022 %>%
     niveleduc = m01,
     sumision_auto = c18_05,
     agresion_auto = c37_05,
-    convencionalismo = r12_06)
+    convencionalismo = r12_03)
 
 #4. Eliminamos los NAs o casos perdidos.-
 
@@ -263,3 +263,69 @@ ggplot(elsoc6, aes(x = niveleducacion, y = info_politica_medios, fill = niveledu
 ```
 
 Por último, en este gráfico se evidencia una relación lineal y ascendente entre las variables, demostrando que a mayor nivel educativo, aumenta la frecuencia de uso de medios para informarse sobre política en Chile. Metodológicamente, se observa que el grupo con educación básica registra el promedio más bajo con 2.5 puntos, seguido por el nivel medio con 2.83, mientras que el sector con educación superior lidera con la frecuencia más alta al alcanzar un promedio de 3.29 puntos. Estos datos sugieren que el nivel educacional (o capital cultural) opera como un factor de estratificación en el consumo informativo, concentrando la exposición a contenidos políticos en los sectores más escolarizados.
+
+## Creación Variable Latente "Autoritarismo"
+
+### Alfa de Cronbach y Correlación entre Items.
+
+```{r}
+#9. Creación de la variable latente
+#9.1 
+items_autoritarismo <- elsoc6 %>%
+  select(sumision_auto,agresion_auto,convencionalismo,)
+#9.2 Sacamos la correlación entre los items
+cor(items_autoritarismo, use = "complete.obs")
+
+#9.3 Sacamos el Alfa de Cronbach
+check.keys=TRUE
+alfa_resultado <- psych::alpha(items_autoritarismo)
+alfa_resultado
+```
+
+Como podemos observar, el resultado de nuestro Alfa de Cronbach es de 0,4439 lo cual se considera un nivel de consistencia interna moderado-bajo en comparación con los estándares tradicionales de escalas psicométricas (mayor a 0.7) Sin embargo, este resultado debe interpretarse considerando que la escala fue construido a partir de solo tres ítems y utilizando variables adaptadas del cuestionario ELSOC. Intentamos construir nuestra escala con distintas variables, y aun asi lo más alto que pudimos alcanzar fue 0,44. Esto puede ser porque el instrumento originalmente no fue diseñado para medir autoritarismo político de manera directa.
+
+A pesar de ello, las correlaciones entre los ítems son positivas y los análisis de confiabilidad muestran que todas las variables contribuyen a la escala general, por lo que este puede ser utilizado como una medida exploratoria de tendencias autoritarias con cierta precaución.
+
+## Correlación entre Escala de Autoritarismo y Promedio de Uso de medios de comunicación para informarse sobre política.
+
+```{r}
+elsoc6$indice_autoritarismo <- rowMeans(
+  elsoc6[, c(
+    "sumision_auto",
+    "agresion_auto",
+    "convencionalismo"
+  )],
+  na.rm = TRUE
+)
+cor(
+  elsoc6$indice_autoritarismo,
+  elsoc6$info_politica_medios,
+  use = "complete.obs"
+)
+
+matriz_final <- cor(
+  elsoc6[, c(
+    "indice_autoritarismo",
+    "info_politica_medios"
+  )],
+  use = "complete.obs"
+)
+
+plot(
+  elsoc6$info_politica_medios,
+  elsoc6$indice_autoritarismo,
+  xlab = "Información política por medios",
+  ylab = "Índice de autoritarismo",
+  main = "Relación entre información política y autoritarismo"
+)
+
+abline(
+  lm(indice_autoritarismo ~ info_politica_medios, data = elsoc6),
+  col = "red",
+  lwd = 2
+)
+```
+
+La correlación entre el índice de autoritarismo y la variable “información política por medios de comunicación” muestra una correlación negativa muy débil (r = -0.067). Esto indica que, a medida que aumenta la frecuencia con la que las personas se informan sobre política a través de medios como televisión, radio, diarios o internet, tiende a disminuir levemente el nivel de autoritarismo.
+
+No obstante, debido a la baja intensidad de la correlación, la relación entre ambas variables es limitada y no permite afirmar una asociación fuerte entre el consumo de información política y las tendencias autoritarias. En este sentido, los resultados sugieren que el uso de medios para informarse políticamente tendría un efecto reducido sobre el autoritarismo en la muestra analizada.

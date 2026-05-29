@@ -28,7 +28,7 @@ elsoc6variables <- elsoc2022 %>%
     niveleduc = m01,
     sumision_auto = c18_05,
     agresion_auto = c37_05,
-    convencionalismo = r12_06)
+    convencionalismo = r12_03)
 
 #4. Eliminamos los NAs o casos perdidos.-
 
@@ -157,3 +157,50 @@ ggplot(elsoc6, aes(x = niveleducacion, y = info_politica_medios, fill = niveledu
   theme_light() +
   scale_fill_viridis_d(option = "plasma")
 
+#9. Creación de la variable latente
+#9.1 
+items_autoritarismo <- elsoc6 %>%
+  select(sumision_auto,agresion_auto,convencionalismo,)
+#9.2 Sacamos la correlación entre los items
+cor(items_autoritarismo, use = "complete.obs")
+
+#9.3 Sacamos el Alfa de Cronbach
+check.keys=TRUE
+alfa_resultado <- psych::alpha(items_autoritarismo)
+alfa_resultado
+
+#10 Correlacion entre nuestra escala y variable indep (informacion politica en medios de comunicacion)
+elsoc6$indice_autoritarismo <- rowMeans(
+  elsoc6[, c(
+    "sumision_auto",
+    "agresion_auto",
+    "convencionalismo"
+  )],
+  na.rm = TRUE
+)
+cor(
+  elsoc6$indice_autoritarismo,
+  elsoc6$info_politica_medios,
+  use = "complete.obs"
+)
+
+matriz_final <- cor(
+  elsoc6[, c(
+    "indice_autoritarismo",
+    "info_politica_medios"
+  )],
+  use = "complete.obs"
+)
+
+plot(
+  elsoc6$info_politica_medios,
+  elsoc6$indice_autoritarismo,
+  xlab = "Información política por medios",
+  ylab = "Índice de autoritarismo",
+  main = "Relación entre información política y autoritarismo"
+)
+
+abline(
+  lm(indice_autoritarismo ~ info_politica_medios, data = elsoc6),
+  col = "red",
+  lwd = 2
