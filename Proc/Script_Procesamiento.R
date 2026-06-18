@@ -8,7 +8,7 @@
 
 install.packages("pacman")
 library(pacman)
-p_load(tidyverse, haven, dplyr, car)
+p_load(tidyverse, haven, dplyr, car, corrplot)
 
 #2. Cargamos la base de datos a utilizar.-
 base_elsoc <- read_dta("C:/Users/belen/OneDrive/Documentos/GitHub/confianza-medios-edad-educacion/Input/ELSOC_Long_2016_2023.dta")
@@ -29,6 +29,7 @@ elsoc6variables <- elsoc2022 %>%
     sumision_auto = c18_05,
     agresion_auto = c37_05,
     convencionalismo = r12_03)
+
 
 #4. Eliminamos los NAs o casos perdidos.-
 
@@ -80,20 +81,6 @@ elsoc6 <- elsoc6limpia %>%
       TRUE ~ NA_character_))
 
 #7.Tablas.-
-
-tabla_descriptivos  <-  elsoc6 %>%
-  select (sueldo, edad) %>%
-  pivot_longer (cols = everything(), names_to = “variable”, values_to = “valor”) %>%
-  group_by(variable) %>%
-  summarise(
-    minimo = min(valor),
-    media = mean(valor),
-    mediana = median(valor),
-    maximo = max(valor),
-    SD = sd(valor),
-  )
-
-
 #7.1 Tabla de medidas de Tendencia Central
 p_load(psych)
 
@@ -170,26 +157,26 @@ alfa_resultado <- psych::alpha(items_autoritarismo)
 alfa_resultado
 
 #10 Correlacion entre nuestra escala y variable indep (informacion politica en medios de comunicacion)
-elsoc6$indice_autoritarismo <- rowMeans(
-  elsoc6[, c(
-    "sumision_auto",
-    "agresion_auto",
-    "convencionalismo"
-  )],
-  na.rm = TRUE
-)
-cor(
-  elsoc6$indice_autoritarismo,
-  elsoc6$info_politica_medios,
+
+# Reemplazamos los valores -888 y -999 por NA para que no afecten el cálculo
+elsoc6$info_politica_medios[elsoc6$info_politica_medios == -888] <- NA
+elsoc6$info_politica_medios[elsoc6$info_politica_medios == -999] <- NA
+
+# 10.1 Extraer las puntuaciones promedio creadas por el Alpha de Cronbach
+elsoc6$indice_autoritarismo <- alfa_resultado$scores
+
+# 10.2 Corremos la correlación de Spearman
+cor.test(
+  elsoc6$indice_autoritarismo, 
+  elsoc6$info_politica_medios, 
+  method = "spearman", 
   use = "complete.obs"
 )
 
 matriz_final <- cor(
-  elsoc6[, c(
-    "indice_autoritarismo",
-    "info_politica_medios"
-  )],
-  use = "complete.obs"
+  elsoc6[, c("indice_autoritarismo", "info_politica_medios")],
+  use = "complete.obs",
+  method = "spearman"
 )
 
 plot(
@@ -204,3 +191,71 @@ abline(
   lm(indice_autoritarismo ~ info_politica_medios, data = elsoc6),
   col = "red",
   lwd = 2
+)
+
+# Relación entre nuestra variable independiente y la dependiente (Y)
+library(ggplot2)
+
+ggplot(base_regresion1,
+       aes(x = info_politica_medios,
+           y = indice_autoritarismo)) +
+  geom_point(size = 1) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    x = "Información política por medios",
+    y = "Índice de autoritarismo"
+  )
+
+## Medias condicionales
+aggregate(
+  indice_autoritarismo ~ info_politica_medios,
+  data = base_regresion1,
+  mean
+)
+
+# 11 Preparación regresion lineal.
+
+## Paquetes a utilizar
+pacman::p_load(dplyr, car, sjmisc, sjPlot, sjlabelled, stargazer, kableExtra, corrplot, texreg, ggplot2, ggpubr)
+
+## Base para la regresión.
+elsoc6limpia$indice_autoritarismo <- rowMeans(
+  items_autoritarismo,
+  na.rm = TRUE
+)
+
+summary(elsoc6limpia$indice_autoritarismo)
+
+base_regresion1 <- elsoc6limpia[, c(
+  "indice_autoritarismo",
+  "info_politica_medios"
+)]
+
+# 12. Regresión lineal (Modelo 1)
+
+modelolineal1 <- lm(
+  indice_autoritarismo ~ info_politica_medios,
+  data = base_regresion1
+)
+
+summary(modelolineal1)
+
+# 13. Regresión lineal (Modelo 2)
+
+#BASE DATOS
+base_regresion2 <- elsoc6limpia[, c(
+  "indice_autoritarismo",
+  "info_politica_medios",
+  "edad",
+  "niveleduc"
+)]
+
+modelo2 <- lm(
+  indice_autoritarismo ~ info_politica_medios +
+    edad +
+    niveleduc,
+  data = base_regresion2
+)
+
+summary(modelo2)
+  

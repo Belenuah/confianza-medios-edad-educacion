@@ -182,7 +182,7 @@ Esta tabla de estadísiticos descriptivos asume el comportamiento de las princip
 
 ```{r}
 
-#7.2 Tabla de frecuencias.
+#7. Tabla de frecuencias.
 # Frecuencia para Sexo
 tabla_sexo <- elsoc6 %>%
   count(sexo) %>%
@@ -289,26 +289,27 @@ A pesar de ello, las correlaciones entre los ítems son positivas y los análisi
 ## Correlación entre Escala de Autoritarismo y Promedio de Uso de medios de comunicación para informarse sobre política.
 
 ```{r}
-elsoc6$indice_autoritarismo <- rowMeans(
-  elsoc6[, c(
-    "sumision_auto",
-    "agresion_auto",
-    "convencionalismo"
-  )],
-  na.rm = TRUE
-)
-cor(
-  elsoc6$indice_autoritarismo,
-  elsoc6$info_politica_medios,
+#10 Correlacion entre nuestra escala y variable indep (informacion politica en medios de comunicacion)
+
+# Reemplazamos los valores -888 y -999 por NA para que no afecten el cálculo
+elsoc6$info_politica_medios[elsoc6$info_politica_medios == -888] <- NA
+elsoc6$info_politica_medios[elsoc6$info_politica_medios == -999] <- NA
+
+#10.1 Extraer las puntuaciones promedio creadas por el Alpha de Cronbach
+elsoc6$indice_autoritarismo <- alfa_resultado$scores
+
+#10.2 Corremos la correlación de Spearman
+cor.test(
+  elsoc6$indice_autoritarismo, 
+  elsoc6$info_politica_medios, 
+  method = "spearman", 
   use = "complete.obs"
 )
 
 matriz_final <- cor(
-  elsoc6[, c(
-    "indice_autoritarismo",
-    "info_politica_medios"
-  )],
-  use = "complete.obs"
+  elsoc6[, c("indice_autoritarismo", "info_politica_medios")],
+  use = "complete.obs",
+  method = "spearman"
 )
 
 plot(
@@ -324,8 +325,149 @@ abline(
   col = "red",
   lwd = 2
 )
+
 ```
 
 La correlación entre el índice de autoritarismo y la variable “información política por medios de comunicación” muestra una correlación negativa muy débil (r = -0.067). Esto indica que, a medida que aumenta la frecuencia con la que las personas se informan sobre política a través de medios como televisión, radio, diarios o internet, tiende a disminuir levemente el nivel de autoritarismo.
 
 No obstante, debido a la baja intensidad de la correlación, la relación entre ambas variables es limitada y no permite afirmar una asociación fuerte entre el consumo de información política y las tendencias autoritarias. En este sentido, los resultados sugieren que el uso de medios para informarse políticamente tendría un efecto reducido sobre el autoritarismo en la muestra analizada.
+
+# Relación entre una variable independiente y la variable dependiente.
+
+Antes de empezar con nuestro modelo de regresión lineal visualizaremos la relación entre una variable independiente ("Se informa activamente sobre política en medios tales como television, radios, diarios o internet") y nuestra variable dependiente, la cual corresponde al Indice de Autoritarismo. Esta
+
+```{r}
+#Relación entre nuestra variable independiente y la dependiente
+
+## Base para la regresión.
+elsoc6limpia$indice_autoritarismo <- rowMeans(
+  items_autoritarismo,
+  na.rm = TRUE
+)
+
+summary(elsoc6limpia$indice_autoritarismo)
+
+base_regresion1 <- elsoc6limpia[, c(
+  "indice_autoritarismo",
+  "info_politica_medios"
+)]
+
+# Relación de Y con X
+library(ggplot2)
+
+ggplot(base_regresion1,
+       aes(x = info_politica_medios,
+           y = indice_autoritarismo)) +
+  geom_point(size = 1) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    x = "Información política por medios",
+    y = "Índice de autoritarismo"
+  )
+
+## Medias condicionales
+aggregate(
+  indice_autoritarismo ~ info_politica_medios,
+  data = base_regresion1,
+  mean
+)
+
+```
+
+El gráfico presentado evaluaría la relación entre la cantidad de información política que las personas reciben a través de los medios (eje horizontal de 1 a 5) y su nivel en el índice de autoritarismo (eje vertical de 1 a 5).
+
+Los puntos se distribuyen en cinco columnas verticales perfectamente alineadas, lo que evidencia que la variable independiente no es continua, sino que esta medida a través de una escala categórica o de puntajes enteros discretos. A lo largo de estas cinco columnas, los datos muestran una dispersión muy amplia y homogénea, abarcando prácticamente todo el espectro de la escala de autoritarismo en cada uno de los niveles de información.
+
+La línea azul que cruza el gráfico representa el ajuste lineal de los datos y nos muestra una pendiente negativa extremadamente leve, casi horizontal. Se encuentra con una ligera inclinación hacia abajo indicando que, a nivel general, existe una tendencia marginal a que el autoritarismo disminuya a medida que aumenta la exposición a la información política. Sin embargo, al mantenerse la línea prácticamente plana y se mantiene de manera constante entre los valores 3.7 y 3.8 a lo largo de todo el recorrido, quedando de manifiesto que el impacto real de una variable sobre la otra es prácticamente nulo.
+
+En conclusión, la interpretación visual del gráfico nos permite determinar que no existe una relación fuerte ni estadísticamente robusta entre el consumo de medios y las actitudes autoritarias en la muestra analizada. La distribución dispersa de los puntos y la horizontalidad de la línea de tendencia demuestran que el nivel del autoritarismo de los sujetos permanece prácticamente inalterado, sin importar si estos se informan poco o mucho a través de los medios de comunicación.
+
+# Regresión lineal simple.
+
+```{r}
+# 11 Preparación regresion lineal.
+
+## Paquetes a utilizar
+pacman::p_load(dplyr, car, sjmisc, sjPlot, sjlabelled, stargazer, kableExtra, corrplot, texreg, ggplot2, ggpubr)
+
+# 12. Regresion lineal (Modelo 1)
+modelolineal1 <- lm(
+  indice_autoritarismo ~ info_politica_medios,
+  data = base_regresion1
+)
+
+summary(modelolineal1)
+
+#| label: tbl-modelo1
+#| tbl-cap: "Modelo 1: Regresión Lineal Simple para Autoritarismo"
+#| echo: false
+#| warning: false
+
+library(sjPlot)
+
+tab_model(
+  modelolineal1,
+  dv.labels = "Índice de Autoritarismo",
+  pred.labels = c("(Intercepto)", "Frecuencia Información Política"),
+  string.ci = "I.C. (95%)",
+  string.p = "p-value"
+)
+```
+
+Se nos muestran los resultados estadísticos detallados del modelo de regresión lineal, donde se evalúa formalmente el impacto de la información política por medio sobre el índice de autoritarismo. El primer dato relevante aparece en el intercepto del modelo, el cual se ubica en 3.86. Este valor representa el punto de partida teórico del índice de autoritarismo cuando la exposición a la información política es nula, sirviendo como la base sobre la cual comenzará a actuar nuestra variable independiente.
+
+Al analizar el coeficiente de la variable, el valor estimado de -0.03809 (aproximadamente -0.04) confirma matemáticamente la sutil pendiente negativa observada en los análisis de precios. Esta cifra nos indica que por cada punto completo que aumente el consumo de información política en la escala de 1 a 5, el índice de autoritarismo disminuye apenas 0.04 puntos. A pesar de ser un artefacto sumamente pequeño y casi plano en términos prácticos, el valor de p (p-value) teniendo como resultado es de 0.00632; al ser menor al umbral estándar de 0.05, concluyendo que el efecto es estadísticamente significativo- Esto significando que la levísima relación a la baja en es producto del azar, sino que existiendo una certeza estadística de que ambas variables se mueven en direcciones opuestas en la población estadística.
+
+Por lo que finalmente, para obtener este hallazgo en perspectiva, es crucial observar el indicador del R cuadrado múltiple, el cual se sitúa en 0.004446. Este indicador revela que la variable “información política por medios” explica apenas el 0.44% de la variabilidad total del índice de autoritarismo.
+
+Esta combinación de resultados nos entregan una conclusión metodológica muy clara: aunque el consumo de medios de comunicación tiene un efecto real y estadísticamente demostrable para reducir las actitudes autoritarias, su impacto practico es tan marginal que el fenómeno del autoritarismo debes ser condicionado por muchos otros factores sociales y demográficas que no están incluidos en este modelo particular.
+
+# Regresión lineal multiple.
+
+```{r}
+# 13. Regresión lineal (Modelo 2)
+
+base_regresion2 <- elsoc6limpia[, c(
+  "indice_autoritarismo",
+  "info_politica_medios",
+  "edad",
+  "niveleduc"
+)]
+
+modelo2 <- lm(
+  indice_autoritarismo ~ info_politica_medios +
+    edad +
+    niveleduc,
+  data = base_regresion2
+)
+
+summary(modelo2)
+
+#| label: tbl-modelo2
+#| tbl-cap: "Modelo 2: Regresión Múltiple con Controles Sociodemográficos"
+#| echo: false
+#| warning: false
+
+tab_model(
+  modelo2,
+  dv.labels = "Índice de Autoritarismo",
+  pred.labels = c(
+    "(Intercepto)", 
+    "Frecuencia Información Política", 
+    "Edad", 
+    "Nivel Educacional"
+  ),
+  string.ci = "I.C. (95%)",
+  string.p = "p-value"
+)
+```
+
+Este análisis marca el punto metodológico más fuerte de nuestro trabajo, ya que pasamos de un modelo simple a uno múltiple para aplicar control estadístico. Ahora se incluyen las variables de control: edad y niveleduc, junto con un nuevo gráfico de dispersión que incluye una línea de ajuste.
+
+El paso hacia un modelo de regresión lineal múltiple introduce el principio del control estadístico, permitiéndonos evaluar si la relación inicial entre el consumo de medios y el autoritarismo se sostiene por sí misma o si estaba siendo influenciada por otras características de los sujetos. Al observar la matriz de datos, se hace evidente la incorporación de variables sociodemográficas clave: la edad y el nivel educacional. El propósito de sumarlas al modelo no es solo ver qué tanto impactan por separado, sino aislar sus efectos para limpiar la relación principal y descubrir el verdadero peso de la información política en los medios una vez que se neutralizan las diferencias generacionales y de escolaridad.
+
+El descubrimiento de este análisis es que el efecto de la información política por medios desaparece por completo y se vuelve estadísticamente insignificante. En los resultados de nuestro modelo múltiple, el coeficiente de info_politica_medios pasa a ser de 0.0109, pero su valor de significancia (p-value) se dispara drásticamente a 0.435, perdiendo todos los asteriscos que tenían en el modelo anterior. En la práctica, un p-value mayor a 0.05 (y tan alto como 0.43) nos indica que no hay ninguna evidencia para asegurar que la variable afecte el autoritarismo. Aquella sutil tendencia a la baja que detectamos al principio no era una relación causal directa, sino lo que en sociología conocemos como una relación espuria: una asociación aparente que en realidad estaba siendo explicada por la intervención oculta de la edad o la educación de las personas.
+
+Lo planteado anteriormente se confirma de manera formal al observar el comportamiento de las variables de control en la misma tabla. Mientras que la edad tampoco resulta significativa ( p = 0.825), el “nivel educacional” muestra un impacto negativo de -0.08 altamente significativo (p \< 0.001). Esto nos demuestra de forma contundente que, una vez controlados los factores sociodemográficos, la frecuencia con la que las personas se informan por los medios no genera ninguna diferencia real en sus actitudes autoritarias, siendo el nivel educativo el verdadero predictor que explica las variaciones en el autoritarismo dentro del modelo.
+
+Como conclusión, el hecho de que el nivel educativo sea el verdadero predictor del modelo radica en el fenómeno del control estadístico y la presencia de una relación espuria. En el modelo de regresión lineal simple, la frecuencia de información política parecía reducir el autoritarismo; sin embargo, en la realidad social, las personas con mayor escolaridad también tienden a consumir más información en los medios. Al introducir simultáneamente ambas variables en la regresión múltiple, el modelo logra aislar el impacto de cada una, revelando que el factor que realmente desplaza y explica la baja en las actitudes autoritarias es el nivel educacional (con un coeficiente de -0.08 y una alta significancia estadística de p \< 0.001). Por lo tanto, el consumo de medios pierde por completo su significancia (p = 0.435), demostrando que su aparente efecto inicial era solo un reflejo indirecto de la escolaridad de los sujetos, siendo la educación la variable estructuralmente determinante.
