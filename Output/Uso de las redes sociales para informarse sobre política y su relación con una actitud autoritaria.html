@@ -284,7 +284,7 @@ convencionalismo     1676 3.07 1.13      3   1   5</code></pre>
 <section id="tabla-de-frecuencias." class="level4">
 <h4 class="anchored" data-anchor-id="tabla-de-frecuencias.">Tabla de Frecuencias.</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#7.2 Tabla de frecuencias.</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#7. Tabla de frecuencias.</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Frecuencia para Sexo</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>tabla_sexo <span class="ot">&lt;-</span> elsoc6 <span class="sc">%&gt;%</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sexo) <span class="sc">%&gt;%</span></span>
@@ -472,43 +472,56 @@ convencionalismo 0.06 0.34 0.14 0.37 0.08    0</code></pre>
 <section id="correlación-entre-escala-de-autoritarismo-y-promedio-de-uso-de-medios-de-comunicación-para-informarse-sobre-política." class="level2">
 <h2 class="anchored" data-anchor-id="correlación-entre-escala-de-autoritarismo-y-promedio-de-uso-de-medios-de-comunicación-para-informarse-sobre-política.">Correlación entre Escala de Autoritarismo y Promedio de Uso de medios de comunicación para informarse sobre política.</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>elsoc6<span class="sc">$</span>indice_autoritarismo <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  elsoc6[, <span class="fu">c</span>(</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sumision_auto"</span>,</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"agresion_auto"</span>,</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"convencionalismo"</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  )],</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  elsoc6<span class="sc">$</span>indice_autoritarismo,</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  elsoc6<span class="sc">$</span>info_politica_medios,</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">use =</span> <span class="st">"complete.obs"</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.06668118</code></pre>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#10 Correlacion entre nuestra escala y variable indep (informacion politica en medios de comunicacion)</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Reemplazamos los valores -888 y -999 por NA para que no afecten el cálculo</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>elsoc6<span class="sc">$</span>info_politica_medios[elsoc6<span class="sc">$</span>info_politica_medios <span class="sc">==</span> <span class="sc">-</span><span class="dv">888</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>elsoc6<span class="sc">$</span>info_politica_medios[elsoc6<span class="sc">$</span>info_politica_medios <span class="sc">==</span> <span class="sc">-</span><span class="dv">999</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">#10.1 Extraer las puntuaciones promedio creadas por el Alpha de Cronbach</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>elsoc6<span class="sc">$</span>indice_autoritarismo <span class="ot">&lt;-</span> alfa_resultado<span class="sc">$</span>scores</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co">#10.2 Corremos la correlación de Spearman</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  elsoc6<span class="sc">$</span>indice_autoritarismo, </span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  elsoc6<span class="sc">$</span>info_politica_medios, </span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"spearman"</span>, </span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">use =</span> <span class="st">"complete.obs"</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in cor.test.default(elsoc6$indice_autoritarismo,
+elsoc6$info_politica_medios, : Cannot compute exact p-value with ties</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>matriz_final <span class="ot">&lt;-</span> <span class="fu">cor</span>(</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  elsoc6[, <span class="fu">c</span>(</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"indice_autoritarismo"</span>,</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"info_politica_medios"</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  )],</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">use =</span> <span class="st">"complete.obs"</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  elsoc6<span class="sc">$</span>info_politica_medios,</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  elsoc6<span class="sc">$</span>indice_autoritarismo,</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Información política por medios"</span>,</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Índice de autoritarismo"</span>,</span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Relación entre información política y autoritarismo"</span></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(</span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(indice_autoritarismo <span class="sc">~</span> info_politica_medios, <span class="at">data =</span> elsoc6),</span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"red"</span>,</span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span></span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Spearman's rank correlation rho
+
+data:  elsoc6$indice_autoritarismo and elsoc6$info_politica_medios
+S = 831754284, p-value = 0.01395
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+        rho 
+-0.06004526 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>matriz_final <span class="ot">&lt;-</span> <span class="fu">cor</span>(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  elsoc6[, <span class="fu">c</span>(<span class="st">"indice_autoritarismo"</span>, <span class="st">"info_politica_medios"</span>)],</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">use =</span> <span class="st">"complete.obs"</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"spearman"</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  elsoc6<span class="sc">$</span>info_politica_medios,</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  elsoc6<span class="sc">$</span>indice_autoritarismo,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Información política por medios"</span>,</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Índice de autoritarismo"</span>,</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Relación entre información política y autoritarismo"</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lm</span>(indice_autoritarismo <span class="sc">~</span> info_politica_medios, <span class="at">data =</span> elsoc6),</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"red"</span>,</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -519,6 +532,280 @@ convencionalismo 0.06 0.34 0.14 0.37 0.08    0</code></pre>
 </div>
 <p>La correlación entre el índice de autoritarismo y la variable “información política por medios de comunicación” muestra una correlación negativa muy débil (r = -0.067). Esto indica que, a medida que aumenta la frecuencia con la que las personas se informan sobre política a través de medios como televisión, radio, diarios o internet, tiende a disminuir levemente el nivel de autoritarismo.</p>
 <p>No obstante, debido a la baja intensidad de la correlación, la relación entre ambas variables es limitada y no permite afirmar una asociación fuerte entre el consumo de información política y las tendencias autoritarias. En este sentido, los resultados sugieren que el uso de medios para informarse políticamente tendría un efecto reducido sobre el autoritarismo en la muestra analizada.</p>
+</section>
+<section id="relación-entre-una-variable-independiente-y-la-variable-dependiente." class="level1">
+<h1>Relación entre una variable independiente y la variable dependiente.</h1>
+<p>Antes de empezar con nuestro modelo de regresión lineal visualizaremos la relación entre una variable independiente (“Se informa activamente sobre política en medios tales como television, radios, diarios o internet”) y nuestra variable dependiente, la cual corresponde al Indice de Autoritarismo. Esta</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Relación entre nuestra variable independiente y la dependiente</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Base para la regresión.</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>elsoc6limpia<span class="sc">$</span>indice_autoritarismo <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  items_autoritarismo,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(elsoc6limpia<span class="sc">$</span>indice_autoritarismo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.000   3.333   3.667   3.750   4.333   5.000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>base_regresion1 <span class="ot">&lt;-</span> elsoc6limpia[, <span class="fu">c</span>(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"indice_autoritarismo"</span>,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"info_politica_medios"</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>)]</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Relación de Y con X</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(base_regresion1,</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> info_politica_medios,</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> indice_autoritarismo)) <span class="sc">+</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Información política por medios"</span>,</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Índice de autoritarismo"</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Uso-de-las-redes-sociales-para-informarse-sobre-política-y-su-relación-con-una-actitud-autoritaria_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Medias condicionales</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  indice_autoritarismo <span class="sc">~</span> info_politica_medios,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> base_regresion1,</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  mean</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  info_politica_medios indice_autoritarismo
+1                    1             3.786967
+2                    2             3.825700
+3                    3             3.761826
+4                    4             3.676471
+5                    5             3.700000</code></pre>
+</div>
+</div>
+<p>El gráfico presentado evaluaría la relación entre la cantidad de información política que las personas reciben a través de los medios (eje horizontal de 1 a 5) y su nivel en el índice de autoritarismo (eje vertical de 1 a 5).</p>
+<p>Los puntos se distribuyen en cinco columnas verticales perfectamente alineadas, lo que evidencia que la variable independiente no es continua, sino que esta medida a través de una escala categórica o de puntajes enteros discretos. A lo largo de estas cinco columnas, los datos muestran una dispersión muy amplia y homogénea, abarcando prácticamente todo el espectro de la escala de autoritarismo en cada uno de los niveles de información.</p>
+<p>La línea azul que cruza el gráfico representa el ajuste lineal de los datos y nos muestra una pendiente negativa extremadamente leve, casi horizontal. Se encuentra con una ligera inclinación hacia abajo indicando que, a nivel general, existe una tendencia marginal a que el autoritarismo disminuya a medida que aumenta la exposición a la información política. Sin embargo, al mantenerse la línea prácticamente plana y se mantiene de manera constante entre los valores 3.7 y 3.8 a lo largo de todo el recorrido, quedando de manifiesto que el impacto real de una variable sobre la otra es prácticamente nulo.</p>
+<p>En conclusión, la interpretación visual del gráfico nos permite determinar que no existe una relación fuerte ni estadísticamente robusta entre el consumo de medios y las actitudes autoritarias en la muestra analizada. La distribución dispersa de los puntos y la horizontalidad de la línea de tendencia demuestran que el nivel del autoritarismo de los sujetos permanece prácticamente inalterado, sin importar si estos se informan poco o mucho a través de los medios de comunicación.</p>
+</section>
+<section id="regresión-lineal-simple." class="level1">
+<h1>Regresión lineal simple.</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 11 Preparación regresion lineal.</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Paquetes a utilizar</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, car, sjmisc, sjPlot, sjlabelled, stargazer, kableExtra, corrplot, texreg, ggplot2, ggpubr)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 12. Regresion lineal (Modelo 1)</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>modelolineal1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  indice_autoritarismo <span class="sc">~</span> info_politica_medios,</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> base_regresion1</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelolineal1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = indice_autoritarismo ~ info_politica_medios, data = base_regresion1)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.74615 -0.41281 -0.00329  0.51100  1.33004 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)           3.86043    0.04350  88.746  &lt; 2e-16 ***
+info_politica_medios -0.03809    0.01393  -2.734  0.00632 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.6466 on 1674 degrees of freedom
+Multiple R-squared:  0.004446,  Adjusted R-squared:  0.003852 
+F-statistic: 7.476 on 1 and 1674 DF,  p-value: 0.006317</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-modelo1</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: "Modelo 1: Regresión Lineal Simple para Autoritarismo"</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  modelolineal1,</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">dv.labels =</span> <span class="st">"Índice de Autoritarismo"</span>,</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">pred.labels =</span> <span class="fu">c</span>(<span class="st">"(Intercepto)"</span>, <span class="st">"Frecuencia Información Política"</span>),</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">string.ci =</span> <span class="st">"I.C. (95%)"</span>,</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">string.p =</span> <span class="st">"p-value"</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
+<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Índice de Autoritarismo</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">I.C. (95%)</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p-value</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3.86</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3.78&nbsp;–&nbsp;3.95</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Frecuencia Información Política</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.04</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.07&nbsp;–&nbsp;-0.01</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>0.006</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">1676</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.004 / 0.004</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>Se nos muestran los resultados estadísticos detallados del modelo de regresión lineal, donde se evalúa formalmente el impacto de la información política por medio sobre el índice de autoritarismo. El primer dato relevante aparece en el intercepto del modelo, el cual se ubica en 3.86. Este valor representa el punto de partida teórico del índice de autoritarismo cuando la exposición a la información política es nula, sirviendo como la base sobre la cual comenzará a actuar nuestra variable independiente.</p>
+<p>Al analizar el coeficiente de la variable, el valor estimado de -0.03809 (aproximadamente -0.04) confirma matemáticamente la sutil pendiente negativa observada en los análisis de precios. Esta cifra nos indica que por cada punto completo que aumente el consumo de información política en la escala de 1 a 5, el índice de autoritarismo disminuye apenas 0.04 puntos. A pesar de ser un artefacto sumamente pequeño y casi plano en términos prácticos, el valor de p (p-value) teniendo como resultado es de 0.00632; al ser menor al umbral estándar de 0.05, concluyendo que el efecto es estadísticamente significativo- Esto significando que la levísima relación a la baja en es producto del azar, sino que existiendo una certeza estadística de que ambas variables se mueven en direcciones opuestas en la población estadística.</p>
+<p>Por lo que finalmente, para obtener este hallazgo en perspectiva, es crucial observar el indicador del R cuadrado múltiple, el cual se sitúa en 0.004446. Este indicador revela que la variable “información política por medios” explica apenas el 0.44% de la variabilidad total del índice de autoritarismo.</p>
+<p>Esta combinación de resultados nos entregan una conclusión metodológica muy clara: aunque el consumo de medios de comunicación tiene un efecto real y estadísticamente demostrable para reducir las actitudes autoritarias, su impacto practico es tan marginal que el fenómeno del autoritarismo debes ser condicionado por muchos otros factores sociales y demográficas que no están incluidos en este modelo particular.</p>
+</section>
+<section id="regresión-lineal-multiple." class="level1">
+<h1>Regresión lineal multiple.</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 13. Regresión lineal (Modelo 2)</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>base_regresion2 <span class="ot">&lt;-</span> elsoc6limpia[, <span class="fu">c</span>(</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"indice_autoritarismo"</span>,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"info_politica_medios"</span>,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"edad"</span>,</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"niveleduc"</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>)]</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  indice_autoritarismo <span class="sc">~</span> info_politica_medios <span class="sc">+</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>    edad <span class="sc">+</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    niveleduc,</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> base_regresion2</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = indice_autoritarismo ~ info_politica_medios + edad + 
+    niveleduc, data = base_regresion2)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.51766 -0.42762 -0.00305  0.41803  1.64162 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)           4.1525264  0.0760382  54.611   &lt;2e-16 ***
+info_politica_medios  0.0109311  0.0140127   0.780    0.435    
+edad                  0.0002684  0.0012169   0.221    0.825    
+niveleduc            -0.0849675  0.0071730 -11.846   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.6214 on 1672 degrees of freedom
+Multiple R-squared:  0.08163,   Adjusted R-squared:  0.07998 
+F-statistic: 49.54 on 3 and 1672 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-modelo2</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: "Modelo 2: Regresión Múltiple con Controles Sociodemográficos"</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  modelo2,</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">dv.labels =</span> <span class="st">"Índice de Autoritarismo"</span>,</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">pred.labels =</span> <span class="fu">c</span>(</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"(Intercepto)"</span>, </span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Frecuencia Información Política"</span>, </span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Edad"</span>, </span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Nivel Educacional"</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">string.ci =</span> <span class="st">"I.C. (95%)"</span>,</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">string.p =</span> <span class="st">"p-value"</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">&nbsp;</td>
+<td colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: normal; font-weight: bold; padding: 0.2cm;">Índice de Autoritarismo</td>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Predictors</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">Estimates</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">I.C. (95%)</td>
+<td style="text-align: center; border-bottom: 1px solid; font-style: italic; font-weight: normal;">p-value</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">(Intercepto)</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">4.15</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">4.00&nbsp;–&nbsp;4.30</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Frecuencia Información Política</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.01</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.02&nbsp;–&nbsp;0.04</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.435</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Edad</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.00</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.00&nbsp;–&nbsp;0.00</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">0.825</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Nivel Educacional</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.08</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;">-0.10&nbsp;–&nbsp;-0.07</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: top;"><strong>&lt;0.001</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">Observations</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm; border-top: 1px solid;">1676</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">R<sup>2</sup> / R<sup>2</sup> adjusted</td>
+<td colspan="3" style="text-align: left; padding: 0.2cm; vertical-align: top; padding-top: 0.1cm; padding-bottom: 0.1cm;">0.082 / 0.080</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>Este análisis marca el punto metodológico más fuerte de nuestro trabajo, ya que pasamos de un modelo simple a uno múltiple para aplicar control estadístico. Ahora se incluyen las variables de control: edad y niveleduc, junto con un nuevo gráfico de dispersión que incluye una línea de ajuste.</p>
+<p>El paso hacia un modelo de regresión lineal múltiple introduce el principio del control estadístico, permitiéndonos evaluar si la relación inicial entre el consumo de medios y el autoritarismo se sostiene por sí misma o si estaba siendo influenciada por otras características de los sujetos. Al observar la matriz de datos, se hace evidente la incorporación de variables sociodemográficas clave: la edad y el nivel educacional. El propósito de sumarlas al modelo no es solo ver qué tanto impactan por separado, sino aislar sus efectos para limpiar la relación principal y descubrir el verdadero peso de la información política en los medios una vez que se neutralizan las diferencias generacionales y de escolaridad.</p>
+<p>El descubrimiento de este análisis es que el efecto de la información política por medios desaparece por completo y se vuelve estadísticamente insignificante. En los resultados de nuestro modelo múltiple, el coeficiente de info_politica_medios pasa a ser de 0.0109, pero su valor de significancia (p-value) se dispara drásticamente a 0.435, perdiendo todos los asteriscos que tenían en el modelo anterior. En la práctica, un p-value mayor a 0.05 (y tan alto como 0.43) nos indica que no hay ninguna evidencia para asegurar que la variable afecte el autoritarismo. Aquella sutil tendencia a la baja que detectamos al principio no era una relación causal directa, sino lo que en sociología conocemos como una relación espuria: una asociación aparente que en realidad estaba siendo explicada por la intervención oculta de la edad o la educación de las personas.</p>
+<p>Lo planteado anteriormente se confirma de manera formal al observar el comportamiento de las variables de control en la misma tabla. Mientras que la edad tampoco resulta significativa ( p = 0.825), el “nivel educacional” muestra un impacto negativo de -0.08 altamente significativo (p &lt; 0.001). Esto nos demuestra de forma contundente que, una vez controlados los factores sociodemográficos, la frecuencia con la que las personas se informan por los medios no genera ninguna diferencia real en sus actitudes autoritarias, siendo el nivel educativo el verdadero predictor que explica las variaciones en el autoritarismo dentro del modelo.</p>
+<p>Como conclusión, el hecho de que el nivel educativo sea el verdadero predictor del modelo radica en el fenómeno del control estadístico y la presencia de una relación espuria. En el modelo de regresión lineal simple, la frecuencia de información política parecía reducir el autoritarismo; sin embargo, en la realidad social, las personas con mayor escolaridad también tienden a consumir más información en los medios. Al introducir simultáneamente ambas variables en la regresión múltiple, el modelo logra aislar el impacto de cada una, revelando que el factor que realmente desplaza y explica la baja en las actitudes autoritarias es el nivel educacional (con un coeficiente de -0.08 y una alta significancia estadística de p &lt; 0.001). Por lo tanto, el consumo de medios pierde por completo su significancia (p = 0.435), demostrando que su aparente efecto inicial era solo un reflejo indirecto de la escolaridad de los sujetos, siendo la educación la variable estructuralmente determinante.</p>
 
 </section>
 
