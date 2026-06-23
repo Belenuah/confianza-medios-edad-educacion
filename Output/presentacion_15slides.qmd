@@ -1,0 +1,245 @@
+---
+title: "Uso de Medios de Comunicación para Informarse sobre Política y su Relación con una Actitud Autoritaria"
+subtitle: "Métodos Cuantitativos | ELSOC 2022"
+author: "Belén Castro y Millaray Maulen"
+format:
+  revealjs:
+    theme: sky
+    slide-number: true
+    transition: slide
+    footer: "Métodos Cuantitativos · UAH 2026"
+    smaller: true
+    scrollable: true
+lang: es
+---
+
+## Introducción
+
+Chile atraviesa una **crisis profunda de legitimidad democrática** intensificada desde el estallido social de 2019:
+
+- Ciudadanía **desafecta y fragmentada** frente a las instituciones políticas tradicionales.
+- Surgimiento de **discursos autoritarios y de extrema derecha** que revaloran la lógica del enfrentamiento "nosotros vs. ellos" (Barria Asenjo et al., 2022).
+- **Crisis de legitimidad de los medios tradicionales**: consignas como *"La prensa miente"* o *"Apaga la tele"* durante el 18-O reflejan un cambio profundo en la percepción ciudadana.
+- Las **redes sociales** emergen como espacio privilegiado de información política: su uso está "estrechamente vinculado a la participación política" (Scherman & Rivera, 2021).
+
+Esto abre la pregunta: ¿influye la frecuencia con que las personas se informan de política a través de medios en sus actitudes más profundas, como el **autoritarismo**?
+
+---
+
+## Pregunta de Investigación e Hipótesis
+
+**Pregunta:**
+
+> ¿Cómo afecta la frecuencia del uso de medios de comunicación para informarse de política al nivel de autoritarismo en las personas de Chile?
+
+**Hipótesis:**
+
+El impacto no será directo, sino **mediado** por variables sociodemográficas:
+
+- **Sexo**: diferencias de género en la percepción crítica del sistema. Se espera que los hombres presenten mayor consumo informativo.
+- **Edad**: generaciones jóvenes socializadas en entornos digitales y post-estallido tendrán mayor consumo informativo y perfiles más críticos.
+- **Nivel educacional**: mayor capital cultural implica mayor capacidad de análisis crítico y, por tanto, menor autoritarismo.
+
+---
+
+## Base de Datos
+
+**ELSOC 2022 — Ola 6 (COES)** · N = **1.676 casos válidos**
+
+La Encuesta Longitudinal Social de Chile (ELSOC) es producida por el Centro de Estudios de Conflicto y Cohesión Social (COES). Se utilizó la Ola 6, correspondiente al año 2022, tras eliminar los casos con valores perdidos en las variables de interés.
+
+| Variable | Nombre ELSOC | Nivel de medición |
+|---|---|---|
+| Sexo | `sexo_enc` | Nominal (1 = Hombre, 2 = Mujer) |
+| Edad | `edad_enc` | Razón → recodificada en tramos |
+| Nivel educacional | `m01` | Ordinal → 3 categorías |
+| Uso medios política | `c14_02` | Ordinal (1–5) |
+| Sumisión autoritaria | `c18_05` | Ordinal (1–5) |
+| Agresión autoritaria | `c37_05` | Ordinal (1–5) |
+| Convencionalismo | `r12_03` | Ordinal (1–5) |
+
+---
+
+## Construcción del Índice de Autoritarismo
+
+El índice de autoritarismo se construyó promediando tres ítems del ELSOC, basados en la **Escala de Autoritarismo de Derechas (RWA)** de Bob Altemeyer (Cárdenas & Parra, 2010), que mide tres dimensiones:
+
+- **Sumisión autoritaria** (C18_05): *"Lo que nuestro país necesita es un mandatario/a fuerte con la determinación para llevarnos por el camino correcto"*
+
+- **Agresión autoritaria** (C37_05): *"Chile debería tomar medidas más drásticas para impedir el ingreso de inmigrantes al país"*
+
+- **Convencionalismo** (R12_06): *"Los inmigrantes que viven en Chile deben adoptar las costumbres y tradiciones chilenas"*
+
+El **Alfa de Cronbach = 0.44**, valor moderado-bajo, justificado porque se usan solo 3 ítems no diseñados originalmente para medir autoritarismo. Se utiliza como medida exploratoria.
+
+---
+
+## Estadísticos Descriptivos
+
+| Variable | N | Media | DE | Mediana | Mín | Máx |
+|---|---|---|---|---|---|---|
+| Sumisión autoritaria | 1.676 | 3.99 | 0.84 | 4 | 1 | 5 |
+| Agresión autoritaria | 1.676 | 4.19 | 0.82 | 4 | 1 | 5 |
+| Convencionalismo | 1.676 | 3.07 | 1.13 | 3 | 1 | 5 |
+| Uso medios política | 1.676 | 2.91 | 1.13 | 3 | 1 | 5 |
+
+Las tres actitudes autoritarias presentan **promedios altos y homogéneos**. La agresión autoritaria lidera con 4.19, seguida de la sumisión con 3.99. Esto indica que la muestra tiende hacia actitudes autoritarias, especialmente en posiciones duras frente a la inmigración y la valoración de un liderazgo fuerte. El convencionalismo es el más bajo de los tres pero sigue siendo moderado-alto.
+
+El uso de medios (2.91) tiene el promedio más bajo y es la variable más heterogénea (DE = 1.13), lo que indica que hay mucha variabilidad entre personas en su frecuencia de consumo informativo político.
+
+---
+
+## Distribución Muestral
+
+**Por sexo:**
+
+| Sexo | n | % |
+|---|---|---|
+| Hombre (1) | 597 | 35.6% |
+| Mujer (2) | 1.079 | 64.4% |
+
+Hay una **sobrerrepresentación femenina** importante (64.4%). Cualquier análisis desagregado por sexo debe interpretarse con cautela dado este desbalance.
+
+**Por tramo de edad:**
+
+| Tramo | n | % |
+|---|---|---|
+| Jóvenes | 136 | 8.1% |
+| Adultos | 930 | 55.5% |
+| Adultos Mayores | 610 | 36.4% |
+
+Los adultos concentran más de la mitad de la muestra. Los jóvenes están **subrepresentados** con solo 136 casos, lo que limita la generalización de conclusiones sobre ese grupo.
+
+**Por nivel educacional:**
+
+| Nivel | n | % |
+|---|---|---|
+| Básica | 376 | 22.4% |
+| Media | 746 | 44.5% |
+| Superior | 554 | 33.1% |
+
+Esta es la distribución más equilibrada de las tres variables de control, con representación suficiente en cada categoría.
+
+---
+
+## Uso de Medios según Sexo
+
+El promedio de uso de medios para informarse de política es de **3.04 para hombres** y **2.84 para mujeres**, con una diferencia de apenas 0.20 puntos en una escala de 1 a 5.
+
+Esta diferencia es muy pequeña y va en sentido contrario al esperado si se asume que los hombres se informan más. Sin embargo, su magnitud es tan reducida que no permite sostener que el sexo sea un factor que diferencie significativamente el consumo de información política.
+
+En el contexto chileno post-estallido, la desconfianza y el consumo informativo parecen ser fenómenos **transversales al género**, lo que contrasta con parte de la literatura internacional que predecía diferencias más marcadas.
+
+---
+
+## Uso de Medios según Tramo Etario
+
+Los promedios de uso de medios según tramo etario son: **jóvenes (3.00)**, **adultos (2.93)** y **adultos mayores (2.86)**.
+
+Si bien la dirección es consistente con la hipótesis —los jóvenes consumen algo más de información política—, las diferencias entre grupos son muy pequeñas, de no más de 0.14 puntos entre el grupo con mayor y menor consumo. Esto no permite afirmar que la edad sea un factor de estratificación relevante del consumo informativo.
+
+Además, el bajo peso muestral de los jóvenes (8.1%, n = 136) obliga a tomar este resultado con cautela estadística. Cualquier patrón observado en este grupo puede estar influido por la baja representatividad.
+
+---
+
+## Uso de Medios según Nivel Educacional
+
+Los promedios de uso de medios según nivel educacional son: **educación básica (2.51)**, **educación media (2.83)** y **educación superior (3.28)**.
+
+A diferencia de las variables anteriores, aquí sí se observa una **relación lineal y ascendente clara**: la diferencia entre el grupo de menor y mayor educación es de 0.77 puntos, considerablemente mayor que en los gráficos de sexo y edad.
+
+Esto indica que el **capital cultural actúa como un factor de estratificación del consumo informativo**: a mayor nivel educativo, mayor frecuencia de uso de medios para informarse de política. Este patrón es clave para entender por qué en el modelo de regresión múltiple la educación termina siendo el predictor más robusto del autoritarismo, absorbiendo el efecto que inicialmente parecía tener el uso de medios.
+
+---
+
+## Alfa de Cronbach
+
+El análisis de confiabilidad del índice de autoritarismo arrojó un **Alfa de Cronbach = 0.44**, considerado moderado-bajo respecto al umbral convencional de 0.70.
+
+Al revisar los estadísticos por ítem, las correlaciones de cada ítem con el puntaje total (`raw.r`) son positivas y moderadas: 0.62 para sumisión autoritaria, 0.70 para agresión autoritaria y 0.75 para convencionalismo. Las correlaciones `r.drop` (excluyendo el ítem del total) son más bajas pero siguen siendo positivas: 0.23, 0.36 y 0.25 respectivamente. Esto confirma que los tres ítems apuntan en la misma dirección y ninguno perjudica la escala.
+
+La distribución de respuestas muestra una fuerte concentración en valores altos: en sumisión autoritaria el 59% respondió 4 y el 25% respondió 5; en agresión autoritaria el 51% respondió 4 y el 37% respondió 5. El convencionalismo tiene una distribución más dispersa.
+
+El alpha moderado-bajo se justifica porque se usan solo 3 ítems no diseñados originalmente para este fin. Se utiliza como **medida exploratoria** reconociendo esta limitación.
+
+---
+
+## Correlación de Spearman
+
+Al correlacionar el índice de autoritarismo con el uso de medios para informarse de política se obtuvo:
+
+**ρ = −0.060 · p-value = 0.014**
+
+El **signo negativo** indica que la relación va en la dirección esperada: a mayor uso de medios, levemente menor autoritarismo. Sin embargo, el valor de ρ es casi cero, lo que en términos prácticos significa que la relación es prácticamente inexistente. Correlaciones menores a 0.10 en valor absoluto se consideran despreciables en ciencias sociales.
+
+El p-value de 0.014 indica que el resultado es **estadísticamente significativo** (p < 0.05), pero esto no implica relevancia sustantiva. Con muestras grandes como esta (N = 1.676) es posible detectar correlaciones muy pequeñas como significativas aunque no tengan impacto real.
+
+El aviso de R *"Cannot compute exact p-value with ties"* es esperable porque ambas variables son ordinales con muchos valores repetidos. No invalida el resultado.
+
+Al revisar las medias condicionales, el índice de autoritarismo promedia 3.79 para uso = 1, 3.83 para uso = 2, 3.76 para uso = 3, 3.68 para uso = 4 y 3.70 para uso = 5. Los valores no siguen una tendencia lineal clara y la diferencia total es de apenas 0.15 puntos, confirmando que la relación es inexistente en términos sustantivos.
+
+---
+
+## Modelo 1 — Regresión Lineal Simple
+
+El Modelo 1 incluye únicamente la frecuencia de información política por medios como predictor del índice de autoritarismo.
+
+El **intercepto es 3.86** (p < 0.001), que representa el valor promedio esperado del autoritarismo cuando el uso de medios es cero.
+
+El coeficiente de **Frecuencia de Información Política es −0.04** (IC 95%: −0.07 a −0.01, p = 0.006). Por cada unidad de aumento en el uso de medios, el autoritarismo disminuye en promedio 0.04 puntos. Aunque estadísticamente significativo, el efecto es mínimo en términos prácticos.
+
+El **R² = 0.004** es el dato más elocuente: la variable independiente explica apenas el **0.4% de la varianza** del autoritarismo. El modelo no tiene poder explicativo relevante, lo que sugiere que el uso de medios solo no es suficiente para dar cuenta del autoritarismo y que probablemente hay variables confundentes actuando.
+
+---
+
+## Modelo 2 — Regresión Lineal Múltiple
+
+El Modelo 2 incorpora edad y nivel educacional como variables de control junto al uso de medios.
+
+El coeficiente de **Frecuencia de Información Política pasa a 0.01** (p = 0.544), perdiendo completamente su significancia. Una vez controlada la educación y la edad, el uso de medios **no tiene ningún efecto sobre el autoritarismo**. La relación del Modelo 1 era espuria.
+
+La **Edad** tiene un coeficiente de 0.00 pero es significativo (p = 0.003). El efecto existe pero es tan pequeño por año de edad que se redondea a cero en dos decimales. Su impacto sustantivo es muy débil.
+
+El **Nivel Educacional** es el único predictor robusto: β = −0.08 (IC 95%: −0.09 a −0.06, p < 0.001). Por cada categoría de aumento en el nivel educativo, el autoritarismo disminuye 0.08 puntos en promedio. Es el factor que explica de forma consistente las diferencias en autoritarismo.
+
+El **R² sube a 0.086**, más de veinte veces lo que explicaba el Modelo 1. Ese salto se debe principalmente a la incorporación del nivel educacional.
+
+---
+
+## Conclusiones
+
+- El uso de medios para informarse de política **no explica el autoritarismo**. La relación negativa observada en el Modelo 1 era espuria: desaparece al controlar por educación y edad.
+
+- El **nivel educacional es el predictor más robusto**: a mayor nivel educativo, menor autoritarismo (β = −0.08, p < 0.001). El capital cultural actúa como escudo frente a actitudes autoritarias.
+
+- El **sexo no diferencia** el consumo informativo de forma relevante (diferencia de 0.20 puntos). La desconfianza mediática es transversal al género en Chile.
+
+- Los **jóvenes consumen algo más** de información política (3.00), pero su subrepresentación muestral (8.1%) impide generalizar con robustez estadística.
+
+- La **edad** muestra un efecto estadísticamente significativo en el Modelo 2 pero sustantivamente muy pequeño: no es un predictor relevante del autoritarismo.
+
+- El **índice de autoritarismo es exploratorio** (α = 0.44). Se requieren instrumentos más especializados para medir esta dimensión con mayor validez en futuros estudios.
+
+---
+
+## Limitaciones, Proyecciones y Referencias
+
+**Limitaciones:**
+
+- Índice RWA con baja consistencia interna (α = 0.44) porque el ELSOC no fue diseñado para medir autoritarismo directamente.
+- Sobrerrepresentación femenina (64.4%) limita comparaciones por sexo.
+- Subrepresentación juvenil (8.1%) limita conclusiones sobre esa cohorte.
+- El R² del Modelo 2 (0.086) indica que aún hay mucha varianza del autoritarismo no explicada por las variables incluidas.
+
+**Proyecciones:**
+
+- Usar la **Escala RWA completa** para medir autoritarismo con mayor validez.
+- Diferenciar por **tipo de medio** (redes sociales vs. TV/radio vs. prensa).
+- Explorar otras variables explicativas como confianza institucional o exposición a discursos de extrema derecha.
+
+**Referencias:**
+
+- Barria Asenjo et al. (2022). Extrema derecha chilena en prensa y TikTok.
+- Cárdenas & Parra (2010). Adaptación Escala RWA en Chile. *Psicoperspectivas*, 9(1).
+- COES (2022). *ELSOC — Ola 6*. https://conferencias.coes.cl/encuesta-panel/
+- Scherman & Rivera (2021). Redes sociales y participación política en Chile.

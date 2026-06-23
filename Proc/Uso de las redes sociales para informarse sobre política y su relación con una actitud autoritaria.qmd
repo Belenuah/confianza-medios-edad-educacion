@@ -100,8 +100,8 @@ Esta actitud se refiere  al  "grado  de  sometimiento  a  las  autoridade
 #3. Seleccionamos variables.-
 elsoc6variables <- elsoc2022 %>%
   select(
-    sexo = sexo_enc,
-    edad   = edad_enc,   
+    sexo = m0_sexo,
+    edad   = m0_edad,   
     info_politica_medios = c14_02,
     niveleduc = m01,
     sumision_auto = c18_05,
@@ -139,9 +139,9 @@ elsoc6 <- elsoc6limpia %>%
   mutate(
     
     tramo_edad = case_when(
-      edad >= 18 & edad <= 29 ~ "Jóvenes",
-      edad >= 30 & edad <= 59 ~ "Adultos",
-      edad >= 60 & edad <= 78 ~ "Adultos Mayores",
+      edad >= 22 & edad <= 30 ~ "Jóvenes",
+      edad >= 31 & edad <= 59 ~ "Adultos",
+      edad >= 60 & edad <= 90 ~ "Adultos Mayores",
       TRUE ~ NA_character_),
     
     tramo_edad = factor(
@@ -176,7 +176,9 @@ tabla_mtc <- tabla_mtc %>%
 print(tabla_mtc)
 ```
 
-Esta tabla de estadísiticos descriptivos asume el comportamiento de las principales variables continuas del estudio para una muestra válida de 1,696 observaciones, donde todas comparten un rango de respuesta que va desde un mínimo de 1 hasta un máximo de 5 puntos. Metodológicamente, destaca que la variable vinculada a rasgos autoritarios de agresión presenta el promedio más alto con 4.19 puntos (desviación estándar = 0.82, mediana = 4), seguida de cerca por la sumisión autoritaria con una media de 4.00 puntos (desviación estándar = 0.84, mediana = 4) y el convencionalismo con 3.79 puntos (desviación estándar = 0.75, mediana = 4), lo que refleja una alta concentración de respuestas en los niveles superiores de estas escalas. Por otro lado, la variable de uso de medios para informarse sobre política registra el promedio más bajo y la mayor dispersión relativa del grupo con 2.91 puntos y una desviación estándar de 1.13 (mediana = 3). Sociológicamente, estos datos iniciales sugieren que, mientras las actitudes y orientaciones normativas de orden tienden a ser homogéneas y elevadas en la muestra, la frecuencia del consumo informativo digital muestra un comportamiento mucho más heterogéneo y distribuido de forma equilibrada en torno al punto medio de la escala.
+Esta tabla de medidas de tendencia central nos entrega los siguientes resultados. Las cuatro variables comparten el mismo rango (1 a 5). Lo más nos llama la atención es que las tres actitudes autoritarias cuentan con promedios altos: la agresión autoritaria lidera con 4.19, seguida de la sumisión autoritaria con 3.99, y el convencionalismo con 3.07. Esto nos indica que la muestra en general tiende hacia actitudes autoritarias, especialmente en lo que respecta a posiciones duras frente a la inmigración y la valoración de un liderazgo fuerte. El convencionalismo termina siendo el más bajo de los tres, pero sigue siendo moderado-alto.
+
+El uso de medios para informarse de política (2.91) termina siendo la variable con el promedio más bajo y también la más dispersa (DE = 1.13, igual que el convencionalismo), lo que nos llega a indicar que hay mucha variabilidad entre personas: algunas se informan de manera muy frecuente y otras personas casi nada. Esto contrastando con las actitudes autoritarias, que son más homogéneas en la muestra.
 
 #### Tabla de Frecuencias.
 
@@ -204,11 +206,11 @@ print(tabla_tramoedad)
 print(tabla_educ)
 ```
 
-La tabla de frecuencias para la variable "Tramo de Edad" revela una fuerte concentración de la muestra en el segmento adulto, el cual representa la gran mayoría de los casos analizados con un 70.93% (1,203 observaciones). Por su parte, el grupo de adultos mayores constituye el segundo sector con mayor presencia en los datos, alcanzando un 22.05% (374 observaciones), mientras que el tramo correspondiente a los jóvenes exhibe la menor participación en la muestra con apenas un 7.02% (119 observaciones). Desde el punto de vista metodológico, esta distribución dispar es crucial para el análisis posterior, ya que al evaluar el impacto del consumo informativo digital, se debe considerar que la subrepresentación relativa del bloque juvenil frente a los adultos y adultos mayores podría matizar el alcance generalizado de las conclusiones o exigir un control estadístico riguroso según las cohortes generacionales.
+La tabla para los rangos de edades nos entrega los siguientes resultados: Los adultos concentran el 55.5% de la muestra (n = 930), seguidos por los adultos mayores con el 36.4% (n = 610), y los jóvenes apenas alcanzan el 8.1% (n = 136). Siendo la subrepresentación juvenil algo notable: con solo 136 casos, por lo que cualquier conclusión sobre los jóvenes debe tomarse con precaución estadística. Este sesgo etario hacia los tramos mayores es típico de encuestas presenciales longitudinales como ELSOC, donde la retención de participantes jóvenes suele ser más difícil.
 
-Para la variable sexo revela una marcada asimetría en la composición de la muestra analizada, exhibiendo una fuerte prevalencia del segmento femenino. Metodológicamente, se observa que el grupo de mujeres (Femenino) concentra la gran mayoría de los datos con un 77.30% del total, correspondiente a 1,311 observaciones válidas, mientras que el grupo de hombres (Masculino) alcanza apenas un 22.70%, equivalente a 385 observaciones. Desde un punto de vista analítico, es fundamental reportar este desequilibrio en la caracterización de la muestra, ya que una subrepresentación tan notoria del sexo masculino podría sesgar los resultados descriptivos generales y exige una interpretación cautelosa al momento de evaluar cómo se vincula el género con las actitudes autoritarias y el consumo de información política en el país. 
+La tabla de frecuencias para la variable sociodemográfica "Sexo" muestra los valores 1 y 2, donde 1 corresponde a hombre y 2 a mujer según la codificación del ELSOC. Los hombres representan el 35.6% (n = 597) y las mujeres el 64.4% (n = 1.079). Mostrando que hay una sobrerepresentación femenina, lo que es un elemento metodológico relevante: cualquier análisis desagregado por sexo debe interpretarse con cautela dado este desbalance que se muestra. No necesariamente reflejando una distribución real de la población chilena, sino características de la muestra ELSOC en esta ola.
 
-Finalmente, la variable de nivel educacional muestra una muestra bastante equilibrada, aunque con una clara concentración en las categorías de mayor escolaridad. Metodológicamente, se observa que el nivel de educación Media representa el grupo mayoritario con un 44.46% (754 observaciones), seguido por el nivel Superior con un 32.78% (556 observaciones), mientras que las personas con educación Básica constituyen el segmento menor de la muestra con un 22.76% (386 observaciones). Desde una perspectiva sociológica, esta distribución es altamente favorable para los análisis posteriores, ya que al contar con un número robusto de observaciones en cada categoría, el modelo estadístico posee la representatividad necesaria para evaluar con precisión cómo las brechas en el capital cultural y la escolaridad inciden en el consumo de información política y en la configuración de actitudes ciudadanas en el país. 
+Finalmente, la tabla para la variable de nivel educacional nos muestra que la educación media cuenta con la distribución más equilibrada de las tres variables de control, donde se concentra la mayoría con el 44.5% (n = 746), seguida por educación superior con el 33.1% (n = 554), y educación básica con el 22.4% (n = 376). Esta distribución nos permite realizar comparaciones razonables entre los tres grupos, aunque el grupo de educación básica es el más pequeño. Es relevante porque, como muestran los modelos de regresión, el nivel educacional termina siendo el predictor más robusto del autoritarismo en el análisis.
 
 ## Gráficos.
 
@@ -229,7 +231,7 @@ ggplot(elsoc6, aes(x = as.factor(sexo), y = info_politica_medios, fill = as.fact
 
 ```
 
-En este gráfico se muestra el promedio de uso de medios de comunicación para informarse sobre política según el sexo de los encuestados, evidenciando una distribución sumamente homogénea entre ambos grupos. Metodológicamente, se observa que las mujeres (Femenino) presentan un promedio de consumo de 2.92 puntos, mientras que los hombres (Masculino) registran un promedio de 2.86 puntos, lo que representa una diferencia marginal de apenas 0.06 puntos a favor del segmento femenino. Desde una perspectiva sociológica, estos datos descriptivos preliminares sugieren que el género no opera como un factor de estratificación relevante o determinante al momento de explicar la frecuencia con la que la ciudadanía se informa de política en el país.
+El gráfico muestra que los hombres tienen un promedio de uso de medios de 3.04, mientras que las mujeres tienen un promedio de 2.84, mostrando una diferencia de apenas 0.20 puntos, lo que es muy pequeña si consideramos que la escala va de 1 a 5. Esto indicandonos que el sexo **no es un factor que diferencie significativamente** el consumo de información política a través de medios. Ya que tanto hombres como mujeres se informan a frecuencias similares, lo que va en contra de la hipótesis inicial que esperaba diferencias de género. En el contexto chileno post-estallido, la desconfianza y el consumo informativo parecen ser fenómenos transversales al género.
 
 #### Gráficos para Rango Etario y Uso de Medios de Comunicación para informarse sobre política.
 
@@ -245,7 +247,7 @@ ggplot(elsoc6, aes(x = tramo_edad, y = info_politica_medios, fill = tramo_edad))
   scale_fill_brewer(palette = "Set3")
 ```
 
-Este gráfico describe el promedio de uso de medios de comunicación para informarse sobre política según las distintas cohortes generacionales, mostrando variaciones sutiles pero interesantes entre los grupos. Metodológicamente, se observa que el segmento de los jóvenes registra la frecuencia más alta de consumo informativo con un promedio de 3.15 puntos, seguido por los adultos mayores con 2.95 puntos, mientras que el grupo de adultos concentra el promedio más bajo al marcar 2.87 puntos. Desde una lectura sociológica, este hallazgo preliminar es valioso para la investigación, ya que confirma que las generaciones más jóvenes lideran la frecuencia de exposición a la información política, lo cual se alinea con las tesis sobre el impacto de los nuevos entornos digitales en la juventud. 
+Este otro gráfico nos indica que los jóvenes presentan el promedio más alto de consumo informativo (3.00), seguidos de cerca por los adultos (2.93) y los adultos mayores (2.86). Las diferencias entre grupos son muy pequeñas, de no más de 0.14 puntos entre el grupo con mayor y menor consumo. Si bien la dirección del resultado es consistente con la hipótesis de que los jóvenes se informan más, la magnitud es tan pequeña que no permite afirmar que la edad sea un factor de estratificación relevante del consumo informativo. Además, el bajo peso muestral de los jóvenes (8.1%) obliga a tomar este resultado con cautela. 
 
 #### Gráficos para Nivel Educacional y Uso de Medios de Comunicación para informarse sobre política.
 
@@ -262,7 +264,7 @@ ggplot(elsoc6, aes(x = niveleducacion, y = info_politica_medios, fill = niveledu
 
 ```
 
-Por último, en este gráfico se evidencia una relación lineal y ascendente entre las variables, demostrando que a mayor nivel educativo, aumenta la frecuencia de uso de medios para informarse sobre política en Chile. Metodológicamente, se observa que el grupo con educación básica registra el promedio más bajo con 2.5 puntos, seguido por el nivel medio con 2.83, mientras que el sector con educación superior lidera con la frecuencia más alta al alcanzar un promedio de 3.29 puntos. Estos datos sugieren que el nivel educacional (o capital cultural) opera como un factor de estratificación en el consumo informativo, concentrando la exposición a contenidos políticos en los sectores más escolarizados.
+En este gráfico se observa una relación lineal y ascendente clara: quienes tienen educación básica presentan el promedio más bajo (2.51), seguidos por quienes tienen educación media (2.83), y finalmente quienes tienen educación superior muestran el promedio más alto (3.28). La diferencia entre el grupo de menor y mayor educación es de 0.77 puntos, considerablemente mayor que en los otros dos gráficos. Esto indica que el capital cultural sí actúa como un factor de estratificación del consumo informativo: a mayor nivel educativo, mayor frecuencia de uso de medios para informarse de política. Este patrón es clave para entender por qué en el modelo de regresión múltiple la educación termina siendo el único predictor significativo del autoritarismo, absorbiendo el efecto que inicialmente parecía tener el uso de medios.
 
 ## Creación Variable Latente "Autoritarismo"
 
@@ -282,7 +284,7 @@ alfa_resultado <- psych::alpha(items_autoritarismo)
 alfa_resultado
 ```
 
-Como podemos observar, el resultado de nuestro Alfa de Cronbach es de 0,4439 lo cual se considera un nivel de consistencia interna moderado-bajo en comparación con los estándares tradicionales de escalas psicométricas (mayor a 0.7) Sin embargo, este resultado debe interpretarse considerando que la escala fue construido a partir de solo tres ítems y utilizando variables adaptadas del cuestionario ELSOC. Intentamos construir nuestra escala con distintas variables, y aun asi lo más alto que pudimos alcanzar fue 0,44. Esto puede ser porque el instrumento originalmente no fue diseñado para medir autoritarismo político de manera directa.
+Como podemos observar, el resultado de nuestro Alfa de Cronbach es de 0,44 lo cual se considera un nivel de consistencia interna moderado-bajo en comparación con los estándares tradicionales de escalas psicométricas (mayor a 0.7) Sin embargo, este resultado debe interpretarse considerando que la escala fue construido a partir de solo tres ítems y utilizando variables adaptadas del cuestionario ELSOC. Intentamos construir nuestra escala con distintas variables, y aun asi lo más alto que pudimos alcanzar fue 0,44. Esto puede ser porque el instrumento originalmente no fue diseñado para medir autoritarismo político de manera directa.
 
 A pesar de ello, las correlaciones entre los ítems son positivas y los análisis de confiabilidad muestran que todas las variables contribuyen a la escala general, por lo que este puede ser utilizado como una medida exploratoria de tendencias autoritarias con cierta precaución.
 
@@ -328,13 +330,13 @@ abline(
 
 ```
 
-La correlación entre el índice de autoritarismo y la variable “información política por medios de comunicación” muestra una correlación negativa muy débil (r = -0.067). Esto indica que, a medida que aumenta la frecuencia con la que las personas se informan sobre política a través de medios como televisión, radio, diarios o internet, tiende a disminuir levemente el nivel de autoritarismo.
+La correlación entre el índice de autoritarismo y la variable “información política por medios de comunicación” muestra una correlación negativa muy débil (r = -0.060). Esto indica que, a medida que aumenta la frecuencia con la que las personas se informan sobre política a través de medios como televisión, radio, diarios o internet, tiende a disminuir levemente el nivel de autoritarismo.
 
 No obstante, debido a la baja intensidad de la correlación, la relación entre ambas variables es limitada y no permite afirmar una asociación fuerte entre el consumo de información política y las tendencias autoritarias. En este sentido, los resultados sugieren que el uso de medios para informarse políticamente tendría un efecto reducido sobre el autoritarismo en la muestra analizada.
 
 # Relación entre una variable independiente y la variable dependiente.
 
-Antes de empezar con nuestro modelo de regresión lineal visualizaremos la relación entre una variable independiente ("Se informa activamente sobre política en medios tales como television, radios, diarios o internet") y nuestra variable dependiente, la cual corresponde al Indice de Autoritarismo. Esta
+Antes de empezar con nuestro modelo de regresión lineal visualizaremos la relación entre una variable independiente ("Se informa activamente sobre política en medios tales como television, radios, diarios o internet") y nuestra variable dependiente, la cual corresponde al Indice de Autoritarismo.
 
 ```{r}
 #Relación entre nuestra variable independiente y la dependiente

@@ -22,8 +22,8 @@ view(elsoc2022)
 #3. Seleccionamos variables.-
 elsoc6variables <- elsoc2022 %>%
   select(
-    sexo = sexo_enc,
-    edad   = edad_enc,   
+    sexo = m0_sexo,
+    edad   = m0_edad,   
     info_politica_medios = c14_02,
     niveleduc = m01,
     sumision_auto = c18_05,
@@ -62,9 +62,9 @@ elsoc6 <- elsoc6limpia %>%
   mutate(
     
     tramo_edad = case_when(
-      edad >= 18 & edad <= 29 ~ "Jóvenes",
-      edad >= 30 & edad <= 59 ~ "Adultos",
-      edad >= 60 & edad <= 78 ~ "Adultos Mayores",
+      edad >= 22 & edad <= 30 ~ "Jóvenes",
+      edad >= 31 & edad <= 59 ~ "Adultos",
+      edad >= 60 & edad <= 90 ~ "Adultos Mayores",
       TRUE ~ NA_character_),
     
     tramo_edad = factor(
