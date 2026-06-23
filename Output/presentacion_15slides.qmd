@@ -1,13 +1,13 @@
 ---
-title: "Uso de Medios de Comunicación para Informarse sobre Política y su Relación con una Actitud Autoritaria"
-subtitle: "Métodos Cuantitativos | ELSOC 2022"
+title: "Uso de redes sociales para Informarse sobre política y su relación con una Actitud Autoritaria"
+subtitle: "OPT: Programa R para el análisis cuantitativo | ELSOC 2022"
 author: "Belén Castro y Millaray Maulen"
 format:
   revealjs:
     theme: sky
     slide-number: true
     transition: slide
-    footer: "Métodos Cuantitativos · UAH 2026"
+    footer: "OPT: Programa R para el análisis cuantitativo | ELSOC 2022"
     smaller: true
     scrollable: true
 lang: es
